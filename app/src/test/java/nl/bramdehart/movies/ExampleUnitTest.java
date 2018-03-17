@@ -1,4 +1,4 @@
-package nl.bramdehart.movimi;
+package nl.bramdehart.movies;
 
 import org.junit.Test;
 
