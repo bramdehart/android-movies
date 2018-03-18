@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardview_id"
+    android:id="@+id/movie_item"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="108dp"
@@ -13,14 +13,14 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/movie_poster_id"
+            android:id="@+id/movie_poster"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:scaleType="centerCrop"
             android:background="#2d2d2d"/>
 
         <TextView
-            android:id="@+id/movie_title_id"
+            android:id="@+id/movie_title"
             android:textColor="#2d2d2d"
             android:textSize="13sp"
             android:gravity="center"

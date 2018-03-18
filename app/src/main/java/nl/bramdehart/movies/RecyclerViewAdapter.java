@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 /**
@@ -20,18 +18,18 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private List<Movie> mData;
+    private Context context;
+    private List<Movie> movies;
 
-    public RecyclerViewAdapter(Context mContext, List<Movie> mData) {
-        this.mContext = mContext;
-        this.mData = mData;
+    public RecyclerViewAdapter(Context context, List<Movie> movies) {
+        this.context = context;
+        this.movies = movies;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater mInflater = LayoutInflater.from(mContext);
+        LayoutInflater mInflater = LayoutInflater.from(context);
         View view = mInflater.inflate(R.layout.cardview_item_movie, parent, false);
 
         return new MyViewHolder(view);
@@ -39,22 +37,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.movie_title.setText(mData.get(position).getTitle());
-        holder.movie_poster.setImageResource(mData.get(position).getPoster());
+        holder.movieTitle.setText(movies.get(position).getTitle());
+        holder.moviePoster.setImageResource(movies.get(position).getPoster());
 
         // Set click listener
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.movieItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                Intent intent = new Intent(context, MovieDetailActivity.class);
 
                 // Passing data to the Movie Detail activity
-                intent.putExtra("Title", mData.get(position).getTitle());
-                intent.putExtra("Category", mData.get(position).getCategory());
-                intent.putExtra("Description", mData.get(position).getDescription());
-                intent.putExtra("Poster", mData.get(position).getPoster());
+                intent.putExtra("Title", movies.get(position).getTitle());
+                intent.putExtra("Category", movies.get(position).getCategory());
+                intent.putExtra("Description", movies.get(position).getDescription());
+                intent.putExtra("Poster", movies.get(position).getPoster());
 
-                mContext.startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
@@ -62,20 +60,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return movies.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView movie_title;
-        ImageView movie_poster;
+        CardView movieItem;
+        TextView movieTitle;
+        ImageView moviePoster;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
-            movie_title = (TextView) itemView.findViewById(R.id.movie_title_id);
-            movie_poster = (ImageView) itemView.findViewById(R.id.movie_poster_id);
+            movieItem = (CardView) itemView.findViewById(R.id.movie_item);
+            movieTitle = (TextView) itemView.findViewById(R.id.movie_title);
+            moviePoster = (ImageView) itemView.findViewById(R.id.movie_poster);
         }
     }
 }

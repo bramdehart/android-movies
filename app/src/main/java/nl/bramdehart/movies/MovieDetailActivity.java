@@ -31,9 +31,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
-        tvtitle = (TextView) findViewById(R.id.txttitle);
-        tvcategory = (TextView) findViewById(R.id.txtcategory);
-        tvdescription = (TextView) findViewById(R.id.txtdescription);
+        tvtitle = (TextView) findViewById(R.id.movie_title);
+        tvcategory = (TextView) findViewById(R.id.movie_category);
+        tvdescription = (TextView) findViewById(R.id.movie_description);
         ivposter = (ImageView) findViewById(R.id.movie_poster);
 
         // Receive data

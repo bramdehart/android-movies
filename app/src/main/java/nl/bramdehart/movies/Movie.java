@@ -6,51 +6,51 @@ package nl.bramdehart.movies;
 
 public class Movie {
 
-    private String Title;
-    private String Category;
-    private String Description;
-    private int Poster;
+    private String title;
+    private String category;
+    private String description;
+    private int poster;
 
     public Movie() {
     }
 
     public Movie(String title, String category, String description, int poster) {
-        Title = title;
-        Category = category;
-        Description = description;
-        Poster = poster;
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.poster = poster;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public int getPoster() {
-        return Poster;
+        return poster;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public void setPoster(int poster) {
-        Poster = poster;
+        this.poster = poster;
     }
 }
 
