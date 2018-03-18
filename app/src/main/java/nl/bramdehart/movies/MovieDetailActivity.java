@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TextView tvTitle, tvCategory, tvDescription;
+    private TextView tvTitle;
     private ImageView ivPoster;
 
     @Override
@@ -32,22 +32,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
         tvTitle = (TextView) findViewById(R.id.tv_movie_title);
-        tvCategory = (TextView) findViewById(R.id.tv_movie_category);
-        tvDescription = (TextView) findViewById(R.id.tv_movie_description);
         ivPoster = (ImageView) findViewById(R.id.iv_movie_poster);
 
         // Receive data
         Intent intent = getIntent();
         String Title = intent.getExtras().getString("Title");
-        String Category = intent.getExtras().getString("Category");
-        String Description = intent.getExtras().getString("Description");
         int Poster = intent.getExtras().getInt("Poster");
 
         // Setting values
         setTitle(Title);
         tvTitle.setText(Title);
-        tvCategory.setText(Category);
-        tvDescription.setText(Description);
         ivPoster.setImageResource(Poster);
     }
 }

@@ -49,31 +49,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // Set title
         setTitle("Home");
-
-        // Some dummy movies
-        ArrayList<Movie> movies = new ArrayList<Movie>();
-        movies.add(new Movie("Avengers: Infinity War", "Movie Category", "Movie Description", R.drawable.avengers_infinity_war));
-        movies.add(new Movie("Black Panther", "Movie Category", "Movie Description", R.drawable.black_panther));
-        movies.add(new Movie("Call Me by Your Name ", "Movie Category", "Movie Description", R.drawable.call_me_by_your_name));
-        movies.add(new Movie("Avengers: Infinity War", "Movie Category", "Movie Description", R.drawable.avengers_infinity_war));
-        movies.add(new Movie("Black Panther", "Movie Category", "Movie Description", R.drawable.black_panther));
-        movies.add(new Movie("Call Me by Your Name ", "Movie Category", "Movie Description", R.drawable.call_me_by_your_name));
-        movies.add(new Movie("Avengers: Infinity War", "Movie Category", "Movie Description", R.drawable.avengers_infinity_war));
-        movies.add(new Movie("Black Panther", "Movie Category", "Movie Description", R.drawable.black_panther));
-        movies.add(new Movie("Call Me by Your Name ", "Movie Category", "Movie Description", R.drawable.call_me_by_your_name));
-        movies.add(new Movie("Avengers: Infinity War", "Movie Category", "Movie Description", R.drawable.avengers_infinity_war));
-        movies.add(new Movie("Black Panther", "Movie Category", "Movie Description", R.drawable.black_panther));
-        movies.add(new Movie("Call Me by Your Name ", "Movie Category", "Movie Description", R.drawable.call_me_by_your_name));
-        movies.add(new Movie("Avengers: Infinity War", "Movie Category", "Movie Description", R.drawable.avengers_infinity_war));
-        movies.add(new Movie("Black Panther", "Movie Category", "Movie Description", R.drawable.black_panther));
-        movies.add(new Movie("Call Me by Your Name ", "Movie Category", "Movie Description", R.drawable.call_me_by_your_name));
-
-
-        // Init RecyclerView
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(getApplicationContext(), movies);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
-        recyclerView.setAdapter(rvAdapter);
     }
 
 }

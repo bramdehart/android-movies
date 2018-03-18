@@ -106,4 +106,5 @@
     <string name="movie_category">Movie category</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_favorites">FavoritesActivity</string>
+    <string name="error_message">Failed to get results, please try again.</string>
 </resources>

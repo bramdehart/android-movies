@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,30 +18,55 @@
 
         <EditText
             android:id="@+id/et_search_box"
-            android:hint="Search a movie"
-            android:textSize="22sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Search a movie"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/tv_url_display"
-            android:textSize="22sp"
-            android:text="Enter a search query and your URL will show up here!"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Enter a search query and your URL will show up here!"
+            android:textSize="22sp" />
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_movie_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </ScrollView>
 
             <TextView
-                android:id="@+id/tv_movie_search_results_json"
-                android:text="Make a search and your results will show up here!"
-                android:textSize="18sp"
+                android:id="@+id/tv_error_message"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:padding="16dp"
+                android:visibility="invisible"
+                android:text="@string/error_message"/>
+            
+            <ProgressBar
+                android:id="@+id/pb_loading_indicator"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:layout_width="42dp"
+                android:layout_height="42dp" />
 
-        </ScrollView>
+        </FrameLayout>
 
     </LinearLayout>
 

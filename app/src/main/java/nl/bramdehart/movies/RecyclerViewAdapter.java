@@ -2,6 +2,8 @@ package nl.bramdehart.movies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -38,7 +44,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tvMovieTitle.setText(movies.get(position).getTitle());
-        holder.ivMoviePoster.setImageResource(movies.get(position).getPoster());
+        Picasso.get().load(movies.get(position).getPosterSmall()).into(holder.ivMoviePoster);
 
         // Set click listener
         holder.cvMovieItem.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 // Passing data to the Movie Detail activity
                 intent.putExtra("Title", movies.get(position).getTitle());
-                intent.putExtra("Category", movies.get(position).getCategory());
-                intent.putExtra("Description", movies.get(position).getDescription());
-                intent.putExtra("Poster", movies.get(position).getPoster());
+                intent.putExtra("Poster", movies.get(position).getPosterLarge());
 
                 context.startActivity(intent);
             }
