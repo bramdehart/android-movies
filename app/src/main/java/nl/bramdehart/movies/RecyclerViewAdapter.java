@@ -37,11 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.movieTitle.setText(movies.get(position).getTitle());
-        holder.moviePoster.setImageResource(movies.get(position).getPoster());
+        holder.tvMovieTitle.setText(movies.get(position).getTitle());
+        holder.ivMoviePoster.setImageResource(movies.get(position).getPoster());
 
         // Set click listener
-        holder.movieItem.setOnClickListener(new View.OnClickListener() {
+        holder.cvMovieItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -64,16 +64,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView movieItem;
-        TextView movieTitle;
-        ImageView moviePoster;
+        CardView cvMovieItem;
+        TextView tvMovieTitle;
+        ImageView ivMoviePoster;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            movieItem = (CardView) itemView.findViewById(R.id.movie_item);
-            movieTitle = (TextView) itemView.findViewById(R.id.movie_title);
-            moviePoster = (ImageView) itemView.findViewById(R.id.movie_poster);
+            cvMovieItem = (CardView) itemView.findViewById(R.id.cv_movie_item);
+            tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
+            ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
         }
     }
 }

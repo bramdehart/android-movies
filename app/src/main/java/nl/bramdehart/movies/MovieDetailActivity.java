@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TextView tvtitle, tvcategory, tvdescription;
-    private ImageView ivposter;
+    private TextView tvTitle, tvCategory, tvDescription;
+    private ImageView ivPoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
 
-        tvtitle = (TextView) findViewById(R.id.movie_title);
-        tvcategory = (TextView) findViewById(R.id.movie_category);
-        tvdescription = (TextView) findViewById(R.id.movie_description);
-        ivposter = (ImageView) findViewById(R.id.movie_poster);
+        tvTitle = (TextView) findViewById(R.id.tv_movie_title);
+        tvCategory = (TextView) findViewById(R.id.tv_movie_category);
+        tvDescription = (TextView) findViewById(R.id.tv_movie_description);
+        ivPoster = (ImageView) findViewById(R.id.iv_movie_poster);
 
         // Receive data
         Intent intent = getIntent();
@@ -45,9 +45,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Setting values
         setTitle(Title);
-        tvtitle.setText(Title);
-        tvcategory.setText(Category);
-        tvdescription.setText(Description);
-        ivposter.setImageResource(Poster);
+        tvTitle.setText(Title);
+        tvCategory.setText(Category);
+        tvDescription.setText(Description);
+        ivPoster.setImageResource(Poster);
     }
 }

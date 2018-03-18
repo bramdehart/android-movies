@@ -1,31 +1,38 @@
 package nl.bramdehart.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
+
+    private TextView mTextMessage;
+
+    EditText mSearchBoxEditText;
+    TextView mUrlDisplayTextView;
+    TextView mSearchResults;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    transaction.replace(R.id.content, new HomeFragment()).commit();
+                    Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(homeIntent);
                     return true;
                 case R.id.navigation_search:
-                    transaction.replace(R.id.content, new SearchFragment()).commit();
                     return true;
                 case R.id.navigation_favorites:
-                    transaction.replace(R.id.content, new FavoritesFragment()).commit();
+                    Intent favoritesIntent = new Intent(getApplicationContext(), FavoritesActivity.class);
+                    startActivity(favoritesIntent);
                     return true;
             }
             return false;
@@ -35,16 +42,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
+        // Set title
+        setTitle("Search");
+
+        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content, new HomeFragment()).commit();
-
-        setTitle("Home");
+        mSearchBoxEditText = (EditText) findViewById(R.id.et_search_box);
+        mUrlDisplayTextView = (TextView) findViewById(R.id.tv_url_display);
+        mSearchResults = (TextView) findViewById(R.id.tv_movie_search_results_json);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -6,8 +6,6 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="favorites">Favorites</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_button">Home Button</string>
     <string name="search_button">Search Button</string>
@@ -106,4 +104,6 @@
     <string name="action_settings">Settings</string>
     <string name="movie_title">Movie Title</string>
     <string name="movie_category">Movie category</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_favorites">FavoritesActivity</string>
 </resources>
