@@ -18,9 +18,9 @@ public class FavoritesActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(homeIntent);
+                case R.id.navigation_trending:
+                    Intent trendingIntent = new Intent(getApplicationContext(), TrendingActivity.class);
+                    startActivity(trendingIntent);
                     return true;
                 case R.id.navigation_search:
                     Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);

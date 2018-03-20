@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import jp.wasabeef.blurry.Blurry;
+
 /**
  * Created by Bram on 17/03/2018.
  */
@@ -43,7 +45,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        holder.tvMovieTitle.setText(movies.get(position).getTitle());
         Picasso.get().load(movies.get(position).getPosterSmall()).into(holder.ivMoviePoster);
 
         // Set click listener
@@ -53,8 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(context, MovieDetailActivity.class);
 
                 // Passing data to the Movie Detail activity
-                intent.putExtra("Title", movies.get(position).getTitle());
-                intent.putExtra("Poster", movies.get(position).getPosterLarge());
+                intent.putExtra("MovieId", movies.get(position).getMovieId());
 
                 context.startActivity(intent);
             }
@@ -69,14 +69,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cvMovieItem;
-        TextView tvMovieTitle;
         ImageView ivMoviePoster;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             cvMovieItem = (CardView) itemView.findViewById(R.id.cv_movie_item);
-            tvMovieTitle = (TextView) itemView.findViewById(R.id.tv_movie_title);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
         }
     }

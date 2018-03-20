@@ -29,22 +29,66 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    final static String TMDB_BASE_URL = "https://api.themoviedb.org/3/search/movie";
+    final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
+    final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
     final static String PARAM_QUERY = "query";
     final static String PARAM_API_KEY = "api_key";
     final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
 
     /**
-     * Builds the URL used to query Github.
+     * Builds the URL used to query on TMDB.
      *
      * @param TMDBSearchQuery The keyword that will be queried for.
      * @return The URL to use to query the weather server.
      */
-    public static URL buildUrl(String TMDBSearchQuery) {
-        Uri builtUri = Uri.parse(TMDB_BASE_URL).buildUpon()
+    public static URL buildSearchUrl(String TMDBSearchQuery) {
+        Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
             .appendQueryParameter(PARAM_QUERY, TMDBSearchQuery)
             .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
             .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    /**
+     * Builds the URL used to get trending movies on TMDB.
+     *
+     * @return The URL to use to query the weather server.
+     */
+    public static URL buildTrendingUrl() {
+        Uri builtUri = Uri.parse(TMDB_TRENDING_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    /**
+     * Builds the URL used to query movie details TMDB.
+     *
+     * @param movieId The movie id
+     * @return The URL to use to query the weather server.
+     */
+    public static URL buildMovieDetailUrl(int movieId) {
+        String builtUrl = TMDB_DETAIL_BASE_URL + movieId;
+        Uri builtUri = Uri.parse(builtUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .build();
 
         URL url = null;
         try {
