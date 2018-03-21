@@ -20,12 +20,12 @@ import java.util.List;
  * Created by Bram on 17/03/2018.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
     private List<Movie> movies;
 
-    public RecyclerViewAdapter(Context context, List<Movie> movies) {
+    public MovieRecyclerViewAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
     }

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
@@ -106,7 +107,7 @@ public class TrendingActivity extends AppCompatActivity {
     }
 
     private void populateRecyclerView() {
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(getApplicationContext(), movies);
+        MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getApplicationContext(), movies);
 
         // Decide the number of columns based on the screen width
         DisplayMetrics displayMetrics = new DisplayMetrics();

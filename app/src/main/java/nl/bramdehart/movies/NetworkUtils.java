@@ -16,6 +16,7 @@
 package nl.bramdehart.movies;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,8 @@ public class NetworkUtils {
     final static String PARAM_QUERY = "query";
     final static String PARAM_API_KEY = "api_key";
     final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
+    final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
+    final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
 
     /**
      * Builds the URL used to query on TMDB.
@@ -88,31 +91,12 @@ public class NetworkUtils {
         String detailUrl = TMDB_DETAIL_BASE_URL + movieId;
         Uri detailUri = Uri.parse(detailUrl).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_APPEND_TO_RESPONSE, VALUE_APPEND_TO_RESPONSE)
                 .build();
         URL url = null;
         try {
+            Log.e("info", detailUri.toString());
             url = new URL(detailUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-    }
-
-    /**
-     * Builds the URL used to query movie crew.
-     *
-     * @param movieId The movie id
-     * @return The URL to use to query the TMDB server.
-     */
-    public static URL buildMovieCrewUrl(int movieId) {
-        String castsUrl= TMDB_DETAIL_BASE_URL + movieId + "/casts";
-        Uri castsUri = Uri.parse(castsUrl).buildUpon()
-                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
-                .build();
-        URL url = null;
-        try {
-            url = new URL(castsUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

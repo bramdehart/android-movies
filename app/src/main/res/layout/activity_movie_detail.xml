@@ -44,57 +44,24 @@
                     android:layout_height="wrap_content"
                     android:text="Movie Title"
                     android:textColor="#ffffff"
-                    android:textSize="32sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_movie_release_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#aaa"
-                        android:text="release date"
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:id="@+id/tv_movie_runtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#aaa"
-                        android:text="duration"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-
-                <RatingBar
-                    android:id="@+id/rb_movie_rating"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"/>
-
-                <Button
-                    android:id="@+id/btn_favorites"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add to my favorites"
-                    android:layout_marginTop="15dp"/>
+                    android:textSize="32sp"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
-                    android:id="@+id/tv_movie_overview"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_movie_release_date"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:textSize="22sp"
-                    android:text="@string/large_text"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"/>
+                    android:textColor="#aaa"
+                    android:text="release date"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_movie_runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#aaa"
+                    android:text="duration"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_movie_genres"
@@ -109,8 +76,75 @@
                     android:layout_height="wrap_content"
                     android:textColor="#aaa"
                     android:textSize="16sp"
+                    android:layout_marginBottom="15dp"/>
+
+                <Button
+                    android:id="@+id/btn_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add to my favorites"
                     android:layout_marginBottom="30dp"/>
 
+                <RatingBar
+                    android:id="@+id/rb_movie_rating"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_movie_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:text="@string/large_text"
+                    android:layout_marginBottom="30dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_cast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:text="Cast"
+                    android:paddingLeft="15dp"
+                    android:layout_marginBottom="30dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_cast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/tv_crew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:text="Crew"
+                    android:paddingLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_crew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
             <TextView

@@ -23,6 +23,8 @@ public class Movie {
     private String releaseDate;
     private ArrayList<String> genres;
     private ArrayList<String> productionCompanies;
+    private ArrayList<Crew> crew;
+    private ArrayList<Cast> cast;
 
     final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
@@ -34,7 +36,7 @@ public class Movie {
         this.setPosters(posterPath);
     }
 
-    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies) {
+    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew) {
         this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
@@ -43,6 +45,8 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.genres = genres;
         this.productionCompanies = productionCompanies;
+        this.crew = crew;
+        this.cast = cast;
         this.posterPath = posterPath;
         setPosters(posterPath);
         setBackDrops(backDropPath);
@@ -98,6 +102,14 @@ public class Movie {
 
     public ArrayList<String> getProductionCompanies() {
         return productionCompanies;
+    }
+
+    public ArrayList<Cast> getCast() {
+        return  cast;
+    }
+
+    public ArrayList<Crew> getCrew() {
+        return crew;
     }
 
     public void setPosters(String posterPath) {

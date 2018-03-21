@@ -11,8 +11,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -53,6 +56,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ProgressBar pbLoadingIndicator;
     private LinearLayout llMovieInfoHolder;
     private RatingBar rbRatingBar;
+    private RecyclerView rvCast;
+    private RecyclerView rvCrew;
     private int movieId;
 
     private Movie movie;
@@ -75,6 +80,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         llMovieInfoHolder = (LinearLayout) findViewById(R.id.ll_movie_info_holder);
         rbRatingBar = (RatingBar) findViewById(R.id.rb_movie_rating);
         btnFavorites = (Button) findViewById(R.id.btn_favorites);
+        rvCast = (RecyclerView) findViewById(R.id.rv_cast);
+        rvCrew = (RecyclerView) findViewById(R.id.rv_crew);
 
         // Receive data
         Intent intent = getIntent();
@@ -115,7 +122,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void makeTMDBMovieDetailQuery(int movieId) {
         URL TMDBMovieDetailURL = NetworkUtils.buildMovieDetailUrl(movieId);
-        URL TMDBMovieCrewURL = NetworkUtils.buildMovieCrewUrl(movieId);
         new MovieDetailActivity.TMDBQueryTask().execute(TMDBMovieDetailURL);
     }
 
@@ -161,8 +167,26 @@ public class MovieDetailActivity extends AppCompatActivity {
             movieProductionCompanies.add(movieProductionCompanyJSONObject.getString("name"));
         }
 
+        JSONObject castsJSONObject = movieJSONObject.getJSONObject("casts");
+
+        // Get cast
+        ArrayList<Cast> cast = new ArrayList<Cast>();
+        JSONArray castJSONArray = castsJSONObject.getJSONArray("cast");
+        for (int i = 0; i < castJSONArray.length(); i++) {
+            JSONObject castJSONObject = castJSONArray.getJSONObject(i);
+            cast.add(new Cast(castJSONObject.getString("name"), castJSONObject.getString("character"), castJSONObject.getString("profile_path")));
+        }
+
+        // Get crew
+        ArrayList<Crew> crew = new ArrayList<Crew>();
+        JSONArray crewJSONArray = castsJSONObject.getJSONArray("crew");
+        for (int i = 0; i < crewJSONArray.length(); i++) {
+            JSONObject crewJSONObject = crewJSONArray.getJSONObject(i);
+            crew.add(new Crew(crewJSONObject.getString("name"), crewJSONObject.getString("job"), crewJSONObject.getString("profile_path")));
+        }
+
         // Initialize movie
-        movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies);
+        movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies, cast, crew);
 
     }
 
@@ -174,9 +198,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Set text values
         tvMovieTitle.setText(movie.getTitle());
-        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " min");
+        tvMovieRunTime.setText("Duration: " +String.valueOf(movie.getRunTime()) + " min");
         tvMovieOverview.setText(movie.getOverview());
-        tvMovieReleaseDate.setText(movie.getReleaseDate());
+        tvMovieReleaseDate.setText("Release: " + movie.getReleaseDate());
 
         // Load images
         Picasso.get().load(movie.getPosterLarge()).into(ivMoviePoster);
@@ -217,6 +241,18 @@ public class MovieDetailActivity extends AppCompatActivity {
                 tvMovieProductionCompanies.append(productionCompanies.get(i));
             }
         }
+
+
+        CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getApplicationContext(), movie.getCast());
+        LinearLayoutManager castLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvCast.setLayoutManager(castLayoutManager);
+        rvCast.setAdapter(castAdapter);
+
+        CrewRecyclerViewAdapter crewAdapter = new CrewRecyclerViewAdapter(getApplicationContext(), movie.getCrew());
+        LinearLayoutManager crewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvCrew.setLayoutManager(crewLayoutManager);
+        rvCrew.setAdapter(crewAdapter);
+
     }
 
     private Boolean isInFavorites() {

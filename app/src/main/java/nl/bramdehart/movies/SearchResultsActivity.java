@@ -104,7 +104,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void populateRecyclerView() {
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(getApplicationContext(), movies);
+        MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getApplicationContext(), movies);
         rvMovieList.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         rvMovieList.setAdapter(rvAdapter);
     }
