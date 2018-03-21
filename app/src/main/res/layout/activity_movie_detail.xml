@@ -27,8 +27,8 @@
                 android:layout_width="150dp"
                 android:layout_height="220dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-120dp"
-                android:background="#000"
+                android:layout_marginTop="-165dp"
+                android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -44,17 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="Movie Title"
                     android:textColor="#ffffff"
-                    android:textSize="25dp" />
-
-                <RatingBar
-                    android:id="@+id/rb_movie_rating"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contextClickable="false"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1" />
+                    android:textSize="32sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#aaa"
                         android:text="release date"
-                        android:textSize="14dp"/>
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/tv_movie_runtime"
@@ -74,15 +64,34 @@
                         android:layout_height="wrap_content"
                         android:textColor="#aaa"
                         android:text="duration"
-                        android:textSize="14dp"/>
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"/>
                 </LinearLayout>
+
+                <RatingBar
+                    android:id="@+id/rb_movie_rating"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <Button
+                    android:id="@+id/btn_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add to my favorites"
+                    android:layout_marginTop="15dp"/>
 
                 <TextView
                     android:id="@+id/tv_movie_overview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
-                    android:textSize="18dp"
+                    android:textSize="22sp"
                     android:text="@string/large_text"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"/>
@@ -92,20 +101,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#aaa"
-                    android:textSize="14dp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/tv_movie_production_companies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#aaa"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:layout_marginBottom="30dp"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add to my favorites" />
 
             </LinearLayout>
 

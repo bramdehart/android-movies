@@ -1,16 +1,30 @@
 package nl.bramdehart.movies;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import nl.bramdehart.movies.data.FavoritesContract;
+import nl.bramdehart.movies.data.FavoritesDbHelper;
 
 public class FavoritesActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    private SQLiteDatabase mDatabase;
+    private RecyclerView rvMovieList;
+    private ArrayList<Movie> movies;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -28,6 +42,10 @@ public class FavoritesActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorites:
                     return true;
+                case R.id.navigation_settings:
+                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivity(settingsIntent);
+                    return true;
             }
             return false;
         }
@@ -38,9 +56,75 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+
+        // Modify bottombar animation and active item
+        navigation.setSelectedItemId(R.id.navigation_favorites);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
+
+        // Create a database helper
+        FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
+        // Get writable database
+        mDatabase = dbHelper.getWritableDatabase();
+        // Get favorites
+        Cursor cursorFavorites = getFavorites();
+        // Initialize movies
+        initMovies(cursorFavorites);
+        populateRecyclerView();
+    }
+
+    /**
+     * Get the favorites movies from de local database
+     * @return
+     */
+    private Cursor getFavorites() {
+        return mDatabase.query(
+                FavoritesContract.FavoritesEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                FavoritesContract.FavoritesEntry.COLUMN_TIMESTAMP
+        );
+    }
+
+    private void populateRecyclerView() {
+        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(getApplicationContext(), movies);
+
+        // Decide the number of columns based on the screen width
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int width = displayMetrics.widthPixels;
+        int spanCount = 2;
+        if (width > 1400) {
+            spanCount = 4;
+        } else if (width > 700) {
+            spanCount = 3;
+        }
+
+        rvMovieList.setLayoutManager(new GridLayoutManager(getApplicationContext(), spanCount));
+        rvMovieList.setAdapter(rvAdapter);
+    }
+
+    /**
+     * Reads the query result and initialize favorite movies into an array.
+     * @param cursorMovies
+     */
+    private void initMovies(Cursor cursorMovies) {
+        try {
+            movies = new ArrayList<Movie>();
+            while (cursorMovies.moveToNext()) {
+                int movieId = cursorMovies.getInt(cursorMovies.getColumnIndex("movieId"));
+                String posterPath = cursorMovies.getString(cursorMovies.getColumnIndex("posterPath"));
+                movies.add(new Movie(movieId, posterPath));
+            }
+        } finally {
+            cursorMovies.close();
+        }
     }
 
 }

@@ -46,6 +46,10 @@ public class TrendingActivity extends AppCompatActivity {
                     Intent favoritesIntent = new Intent(getApplicationContext(), FavoritesActivity.class);
                     startActivity(favoritesIntent);
                     return true;
+                case R.id.navigation_settings:
+                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivity(settingsIntent);
+                    return true;
             }
             return false;
         }
@@ -59,6 +63,10 @@ public class TrendingActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        // Modify bottombar animation and active item
+        navigation.setSelectedItemId(R.id.navigation_trending);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
 
         rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
         tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
@@ -103,11 +111,11 @@ public class TrendingActivity extends AppCompatActivity {
         // Decide the number of columns based on the screen width
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
 
+        int width = displayMetrics.widthPixels;
         int spanCount = 2;
         if (width > 1400) {
-            spanCount = 4;
+            spanCount = 5;
         } else if (width > 700) {
             spanCount = 3;
         }

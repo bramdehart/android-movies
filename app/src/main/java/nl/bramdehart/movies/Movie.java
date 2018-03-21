@@ -12,6 +12,7 @@ public class Movie {
 
     private int movieId;
     private String title;
+    private String posterPath;
     private String posterSmall;
     private String posterLarge;
     private String backDropSmall;
@@ -33,7 +34,8 @@ public class Movie {
         this.setPosters(posterPath);
     }
 
-    public Movie(String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies) {
+    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies) {
+        this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
         this.rating = rating;
@@ -41,6 +43,7 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.genres = genres;
         this.productionCompanies = productionCompanies;
+        this.posterPath = posterPath;
         setPosters(posterPath);
         setBackDrops(backDropPath);
     }
@@ -59,6 +62,10 @@ public class Movie {
 
     public String getPosterLarge() {
         return posterLarge;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
     }
 
     public String getBackDropSmall() {

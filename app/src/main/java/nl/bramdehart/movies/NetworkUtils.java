@@ -40,7 +40,7 @@ public class NetworkUtils {
      * Builds the URL used to query on TMDB.
      *
      * @param TMDBSearchQuery The keyword that will be queried for.
-     * @return The URL to use to query the weather server.
+     * @return The URL to use to query the TMDB server.
      */
     public static URL buildSearchUrl(String TMDBSearchQuery) {
         Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
@@ -61,7 +61,7 @@ public class NetworkUtils {
     /**
      * Builds the URL used to get trending movies on TMDB.
      *
-     * @return The URL to use to query the weather server.
+     * @return The URL to use to query the TMDB server.
      */
     public static URL buildTrendingUrl() {
         Uri builtUri = Uri.parse(TMDB_TRENDING_BASE_URL).buildUpon()
@@ -79,20 +79,40 @@ public class NetworkUtils {
     }
 
     /**
-     * Builds the URL used to query movie details TMDB.
+     * Builds the URL used to query movie details.
      *
      * @param movieId The movie id
-     * @return The URL to use to query the weather server.
+     * @return The URL to use to query the TMDB server.
      */
     public static URL buildMovieDetailUrl(int movieId) {
-        String builtUrl = TMDB_DETAIL_BASE_URL + movieId;
-        Uri builtUri = Uri.parse(builtUrl).buildUpon()
+        String detailUrl = TMDB_DETAIL_BASE_URL + movieId;
+        Uri detailUri = Uri.parse(detailUrl).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .build();
-
         URL url = null;
         try {
-            url = new URL(builtUri.toString());
+            url = new URL(detailUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    /**
+     * Builds the URL used to query movie crew.
+     *
+     * @param movieId The movie id
+     * @return The URL to use to query the TMDB server.
+     */
+    public static URL buildMovieCrewUrl(int movieId) {
+        String castsUrl= TMDB_DETAIL_BASE_URL + movieId + "/casts";
+        Uri castsUri = Uri.parse(castsUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .build();
+        URL url = null;
+        try {
+            url = new URL(castsUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

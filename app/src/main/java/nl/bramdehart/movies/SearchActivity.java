@@ -46,6 +46,10 @@ public class SearchActivity extends AppCompatActivity {
                     Intent favoritesIntent = new Intent(getApplicationContext(), FavoritesActivity.class);
                     startActivity(favoritesIntent);
                     return true;
+                case R.id.navigation_settings:
+                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivity(settingsIntent);
+                    return true;
             }
             return false;
         }
@@ -67,6 +71,11 @@ public class SearchActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        // Modify bottombar animation and active item
+        navigation.setSelectedItemId(R.id.navigation_search);
+        BottomNavigationViewHelper.removeShiftMode(navigation);
+
         etSearchBox = (EditText) findViewById(R.id.et_search_box);
         btnSearchMovie = (Button) findViewById(R.id.btn_search_movie);
 
