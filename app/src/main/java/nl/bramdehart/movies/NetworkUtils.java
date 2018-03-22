@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -38,6 +39,7 @@ public class NetworkUtils {
     final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
     final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
     final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
+    final static String PARAM_LANGUAGE = "language";
 
     /**
      * Builds the URL used to query on TMDB.
@@ -49,6 +51,7 @@ public class NetworkUtils {
         Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
             .appendQueryParameter(PARAM_QUERY, TMDBSearchQuery)
             .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+            .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
             .build();
 
         URL url = null;
@@ -69,6 +72,7 @@ public class NetworkUtils {
     public static URL buildTrendingUrl() {
         Uri builtUri = Uri.parse(TMDB_TRENDING_BASE_URL).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
                 .build();
 
         URL url = null;
@@ -92,6 +96,7 @@ public class NetworkUtils {
         Uri detailUri = Uri.parse(detailUrl).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .appendQueryParameter(PARAM_APPEND_TO_RESPONSE, VALUE_APPEND_TO_RESPONSE)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
                 .build();
         URL url = null;
         try {
@@ -128,5 +133,16 @@ public class NetworkUtils {
         } finally {
             urlConnection.disconnect();
         }
+    }
+
+    private static String getLanguage() {
+        String language = Locale.getDefault().getLanguage();
+        if (language.equals("nl")) {
+            return "nl";
+        }
+        else if (language.equals("de")) {
+            return "de";
+        }
+        return "en";
     }
 }

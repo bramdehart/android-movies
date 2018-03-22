@@ -27,6 +27,7 @@
                 android:id="@+id/iv_cast_outline"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
+                android:layout_alignTop="@id/iv_cast_profile"
                 android:layout_alignBottom="@id/iv_cast_profile"
                 android:layout_alignLeft="@id/iv_cast_profile"
                 android:layout_alignRight="@id/iv_cast_profile"

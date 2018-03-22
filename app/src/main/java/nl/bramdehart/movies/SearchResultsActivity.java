@@ -88,7 +88,6 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param moviesJSONString
      */
     private void parseMovies(String moviesJSONString) throws JSONException {
@@ -103,7 +102,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         }
 
         // Set title
-        tvResultsTitle.setText(moviesJSONArray.length() + " results for '"+ searchQuery +"'");
+        tvResultsTitle.setText(moviesJSONArray.length() + getResources().getString(R.string.results_heading) + " '" + searchQuery + "'");
     }
 
     private void populateRecyclerView() {

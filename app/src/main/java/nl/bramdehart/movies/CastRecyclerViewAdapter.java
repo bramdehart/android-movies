@@ -47,7 +47,6 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
 
     @Override
     public void onBindViewHolder(CastRecyclerViewAdapter.MyViewHolder holder, final int position) {
-        Log.e("test",cast.get(position).getProfilePath());
         if (cast.get(position).getProfilePath() == "null") {
             Picasso.get().load(R.drawable.profile_placeholder).into(holder.ivProfile);
         } else {

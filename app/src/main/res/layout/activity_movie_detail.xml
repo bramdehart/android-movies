@@ -62,7 +62,7 @@
                     android:id="@+id/btn_favorites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add to my favorites"
+                    android:text="@string/add_to_my_favorites"
                     android:layout_marginBottom="30dp"/>
 
                 <TextView
@@ -79,7 +79,7 @@
                     android:textColor="#fff"
                     android:textSize="22sp"
                     android:textAlignment="center"
-                    android:text="General"
+                    android:text="@string/general"
                     android:layout_marginBottom="15dp"/>
 
                 <LinearLayout
@@ -93,7 +93,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
-                        android:text="Release"
+                        android:text="@string/release"
                         android:textSize="16sp" />
 
                     <TextView
@@ -118,7 +118,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
-                        android:text="Duration"
+                        android:text="@string/duration"
                         android:textSize="16sp" />
 
                     <TextView
@@ -141,7 +141,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
-                        android:text="Genres"
+                        android:text="@string/genres"
                         android:textSize="16sp" />
 
                     <TextView
@@ -165,7 +165,7 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
-                        android:text="Producers"
+                        android:text="@string/producers"
                         android:textSize="16sp" />
 
                     <TextView
@@ -183,14 +183,14 @@
                     android:textColor="#fff"
                     android:textSize="22sp"
                     android:textAlignment="center"
-                    android:text="Trailer"
+                    android:text="@string/trailer"
                     android:layout_marginBottom="15dp"/>
 
                 <Button
                     android:id="@+id/btn_trailer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Watch Trailer"
+                    android:text="@string/watch_trailer"
                     android:layout_marginBottom="15dp"/>
 
             </LinearLayout>
@@ -207,7 +207,7 @@
                     android:textColor="#fff"
                     android:textSize="22sp"
                     android:textAlignment="center"
-                    android:text="Cast"
+                    android:text="@string/cast"
                     android:paddingLeft="15dp"
                     android:layout_marginBottom="15dp"/>
 
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textSize="22sp"
-                    android:text="Crew"
+                    android:text="@string/crew"
                     android:textAlignment="center"
                     android:paddingLeft="15dp"
                     android:layout_marginTop="30dp"

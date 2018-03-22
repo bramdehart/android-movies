@@ -102,9 +102,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         // Set button favorites text
         String txtBtnFavorites;
         if (isInFavorites()) {
-            txtBtnFavorites = "Remove from my favorites";
+            txtBtnFavorites = getResources().getString(R.string.remove_from_favorites);
         } else {
-            txtBtnFavorites = "Add to my favorites";
+            txtBtnFavorites = getResources().getString(R.string.add_to_favorites);
         }
         btnFavorites.setText(txtBtnFavorites);
 
@@ -114,13 +114,13 @@ public class MovieDetailActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 if (isInFavorites() && removeFromFavorites()) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Removed '" + movie.getTitle() + "' from your favorites", duration);
+                    Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.favorites_removed_1)+" '" + movie.getTitle() + "' " + getResources().getString(R.string.favorites_removed_2), duration);
                     toast.show();
-                    btnFavorites.setText("Add to my favorites");
+                    btnFavorites.setText(getResources().getString(R.string.remove_from_favorites));
                 } else if (addToFavorites()) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Added '" + movie.getTitle() + "' to your favorites", duration);
+                    Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.favorites_added_1)+" '" + movie.getTitle() + "' "+getResources().getString(R.string.favorites_added_2), duration);
                     toast.show();
-                    btnFavorites.setText("Remove from my favorites");
+                    btnFavorites.setText(getResources().getString(R.string.add_to_favorites));
                 }
             }
         });
@@ -216,7 +216,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Set text values
         tvMovieTitle.setText(movie.getTitle());
-        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " min");
+        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " "+getResources().getString(R.string.minutes));
         tvMovieOverview.setText(movie.getOverview());
         tvMovieReleaseDate.setText(movie.getReleaseDate());
 
@@ -236,7 +236,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ArrayList<String> genres = movie.getGenres();
         tvMovieGenres.setText("");
         if (genres.size() == 0) {
-            tvMovieGenres.append("Unknown");
+            tvMovieGenres.append(getResources().getString(R.string.unknown));
         } else {
             for (int i = 0; i < genres.size(); i++) {
                 if (i != 0) {
@@ -250,7 +250,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ArrayList<String> productionCompanies = movie.getProductionCompanies();
         tvMovieProductionCompanies.setText("");
         if (productionCompanies.size() == 0) {
-            tvMovieProductionCompanies.append("Unknown");
+            tvMovieProductionCompanies.append(getResources().getString(R.string.unknown));
         } else {
             for (int i = 0; i < productionCompanies.size(); i++) {
                 if (i != 0) {
@@ -289,8 +289,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private Boolean isInFavorites() {
-        ContentValues values = new ContentValues();
-        values.put(FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID, movieId);
         Cursor mCursor = mDatabase.rawQuery(
                 "SELECT * FROM " + FavoritesContract.FavoritesEntry.TABLE_NAME +
                         " WHERE " + FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID + "= " + movieId

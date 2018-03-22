@@ -21,7 +21,7 @@
             android:id="@+id/et_search_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search a movie"
+            android:hint="@string/search_a_movie"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="22sp" />
@@ -30,7 +30,7 @@
             android:id="@+id/btn_search_movie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search movie" />
+            android:text="@string/search_movie" />
 
     </LinearLayout>
 
