@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,12 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
 
     @Override
     public void onBindViewHolder(CastRecyclerViewAdapter.MyViewHolder holder, final int position) {
-        Picasso.get().load(cast.get(position).getProfileUrl()).into(holder.ivProfile);
+        Log.e("test",cast.get(position).getProfilePath());
+        if (cast.get(position).getProfilePath() == "null") {
+            Picasso.get().load(R.drawable.profile_placeholder).into(holder.ivProfile);
+        } else {
+            Picasso.get().load(cast.get(position).getProfileUrl()).into(holder.ivProfile);
+        }
         holder.tvName.setText(cast.get(position).getName());
         holder.tvCharacter.setText(cast.get(position).getCharacter());
     }

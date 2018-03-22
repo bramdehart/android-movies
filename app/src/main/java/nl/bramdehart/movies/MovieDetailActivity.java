@@ -198,9 +198,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Set text values
         tvMovieTitle.setText(movie.getTitle());
-        tvMovieRunTime.setText("Duration: " +String.valueOf(movie.getRunTime()) + " min");
+        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " min");
         tvMovieOverview.setText(movie.getOverview());
-        tvMovieReleaseDate.setText("Release: " + movie.getReleaseDate());
+        tvMovieReleaseDate.setText(movie.getReleaseDate());
 
         // Load images
         Picasso.get().load(movie.getPosterLarge()).into(ivMoviePoster);
@@ -216,7 +216,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Append genres
         ArrayList<String> genres = movie.getGenres();
-        tvMovieGenres.setText("Genres: ");
+        tvMovieGenres.setText("");
         if (genres.size() == 0) {
             tvMovieGenres.append("Unknown");
         } else {
@@ -230,7 +230,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Append production companies
         ArrayList<String> productionCompanies = movie.getProductionCompanies();
-        tvMovieProductionCompanies.setText("Producers: ");
+        tvMovieProductionCompanies.setText("");
         if (productionCompanies.size() == 0) {
             tvMovieProductionCompanies.append("Unknown");
         } else {

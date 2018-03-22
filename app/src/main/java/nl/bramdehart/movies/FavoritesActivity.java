@@ -39,10 +39,6 @@ public class FavoritesActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorites:
                     return true;
-                case R.id.navigation_settings:
-                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
-                    return true;
             }
             return false;
         }

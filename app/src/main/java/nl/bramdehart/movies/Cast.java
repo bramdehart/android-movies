@@ -37,4 +37,8 @@ public class Cast {
     private void setProfileUrl(String profilePath) {
         profileUrl = TMDB_IMG_BASE_URL + "w300" + profilePath;
     }
+
+    public String getProfilePath() {
+        return profilePath;
+    }
 }

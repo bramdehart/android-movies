@@ -40,7 +40,12 @@ public class CrewRecyclerViewAdapter extends RecyclerView.Adapter<CrewRecyclerVi
 
     @Override
     public void onBindViewHolder(CrewRecyclerViewAdapter.MyViewHolder holder, final int position) {
-        Picasso.get().load(crew.get(position).getProfileUrl()).into(holder.ivProfile);
+        if (crew.get(position).getProfilePath() == "null") {
+            Picasso.get().load(R.drawable.profile_placeholder).into(holder.ivProfile);
+        } else {
+            Picasso.get().load(crew.get(position).getProfileUrl()).into(holder.ivProfile);
+        }
+
         holder.tvName.setText(crew.get(position).getName());
         holder.tvJob.setText(crew.get(position).getJob());
     }

@@ -42,48 +42,10 @@
                     android:id="@+id/tv_movie_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Movie Title"
                     android:textColor="#ffffff"
                     android:textSize="32sp"
+                    android:textAlignment="center"
                     android:layout_marginBottom="15dp"/>
-
-                <TextView
-                    android:id="@+id/tv_movie_release_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#aaa"
-                    android:text="release date"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/tv_movie_runtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#aaa"
-                    android:text="duration"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_movie_genres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#aaa"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/tv_movie_production_companies"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#aaa"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="15dp"/>
-
-                <Button
-                    android:id="@+id/btn_favorites"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add to my favorites"
-                    android:layout_marginBottom="30dp"/>
 
                 <RatingBar
                     android:id="@+id/rb_movie_rating"
@@ -92,8 +54,16 @@
                     android:layout_height="wrap_content"
                     android:isIndicator="true"
                     android:numStars="5"
+                    android:layout_gravity="center"
                     android:stepSize="0.1"
                     android:layout_marginBottom="10dp"/>
+
+                <Button
+                    android:id="@+id/btn_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add to my favorites"
+                    android:layout_marginBottom="30dp"/>
 
                 <TextView
                     android:id="@+id/tv_movie_overview"
@@ -101,8 +71,98 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textSize="22sp"
-                    android:text="@string/large_text"
                     android:layout_marginBottom="30dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:textAlignment="center"
+                    android:text="Movie Details"
+                    android:layout_marginBottom="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="Release"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_movie_release_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaa"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="Duration"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_movie_runtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaa"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="Genres"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_movie_genres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaa"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:text="Producers"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_movie_production_companies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaa"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="15dp"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -117,9 +177,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textSize="22sp"
-                    android:text="Cast"
+                    android:textAlignment="center"
+                    android:text="Starring Cast"
                     android:paddingLeft="15dp"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_marginBottom="15dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_cast"
@@ -134,10 +195,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
                     android:textSize="22sp"
-                    android:text="Crew"
+                    android:text="Movie Crew"
+                    android:textAlignment="center"
                     android:paddingLeft="15dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"/>
+                    android:layout_marginBottom="15dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_crew"

@@ -47,10 +47,6 @@ public class TrendingActivity extends AppCompatActivity {
                     Intent favoritesIntent = new Intent(getApplicationContext(), FavoritesActivity.class);
                     startActivity(favoritesIntent);
                     return true;
-                case R.id.navigation_settings:
-                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
-                    return true;
             }
             return false;
         }
