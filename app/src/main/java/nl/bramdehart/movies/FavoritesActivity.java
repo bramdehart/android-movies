@@ -51,7 +51,9 @@ public class FavoritesActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList.setNestedScrollingEnabled(false);
 
         // Modify bottombar animation and active item
         navigation.setSelectedItemId(R.id.navigation_favorites);

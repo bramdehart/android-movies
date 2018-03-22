@@ -1,6 +1,10 @@
 package nl.bramdehart.movies;
 
+import android.net.Uri;
+
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -21,12 +25,14 @@ public class Movie {
     private double rating;
     private String overview;
     private String releaseDate;
+    private String trailerUrl;
     private ArrayList<String> genres;
     private ArrayList<String> productionCompanies;
     private ArrayList<Crew> crew;
     private ArrayList<Cast> cast;
 
     final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
+    final static String YT_MOVIE_BASE_URL = "https://www.youtube.com/watch";
 
     public Movie() {
     }
@@ -36,7 +42,7 @@ public class Movie {
         this.setPosters(posterPath);
     }
 
-    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew) {
+    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId) {
         this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
@@ -50,6 +56,9 @@ public class Movie {
         this.posterPath = posterPath;
         setPosters(posterPath);
         setBackDrops(backDropPath);
+        if (trailerId != null) {
+            setTrailerUrl(trailerId);
+        }
     }
 
     public int getMovieId() {
@@ -112,14 +121,22 @@ public class Movie {
         return crew;
     }
 
-    public void setPosters(String posterPath) {
+    private void setPosters(String posterPath) {
         posterSmall = TMDB_IMG_BASE_URL + "w200" + posterPath;
         posterLarge = TMDB_IMG_BASE_URL + "w500" + posterPath;
     }
 
-    public void setBackDrops(String backDropPath) {
+    private void setBackDrops(String backDropPath) {
         backDropSmall = TMDB_IMG_BASE_URL + "w300" + backDropPath;
         backDropLarge = TMDB_IMG_BASE_URL + "w500" + backDropPath;
+    }
+
+    private void setTrailerUrl(String trailerId) {
+        trailerUrl =  YT_MOVIE_BASE_URL + "?v=" + trailerId;
+    }
+
+    public String getTrailerUrl() {
+        return trailerUrl;
     }
 
 

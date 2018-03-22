@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Rating;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -58,6 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RatingBar rbRatingBar;
     private RecyclerView rvCast;
     private RecyclerView rvCrew;
+    private Button btnTrailer;
     private int movieId;
 
     private Movie movie;
@@ -82,6 +87,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         btnFavorites = (Button) findViewById(R.id.btn_favorites);
         rvCast = (RecyclerView) findViewById(R.id.rv_cast);
         rvCrew = (RecyclerView) findViewById(R.id.rv_crew);
+        btnTrailer = (Button) findViewById(R.id.btn_trailer);
 
         // Receive data
         Intent intent = getIntent();
@@ -185,9 +191,21 @@ public class MovieDetailActivity extends AppCompatActivity {
             crew.add(new Crew(crewJSONObject.getString("name"), crewJSONObject.getString("job"), crewJSONObject.getString("profile_path")));
         }
 
-        // Initialize movie
-        movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies, cast, crew);
+        // Get first trailer
+        String trailerId = null;
+        JSONObject videoJSONObject = movieJSONObject.getJSONObject("videos");
+        JSONArray videoJSONArray = videoJSONObject.getJSONArray("results");
+        if (videoJSONArray.length() > 0) {
+            trailerId = videoJSONArray.getJSONObject(0).getString("key");
+        }
 
+        for (int i = 0; i < crewJSONArray.length(); i++) {
+            JSONObject crewJSONObject = crewJSONArray.getJSONObject(i);
+            crew.add(new Crew(crewJSONObject.getString("name"), crewJSONObject.getString("job"), crewJSONObject.getString("profile_path")));
+        }
+
+        // Initialize movie
+        movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies, cast, crew, trailerId);
     }
 
     private void bindMovieData() {
@@ -243,15 +261,30 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
 
+        // Cast
         CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getApplicationContext(), movie.getCast());
         LinearLayoutManager castLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvCast.setLayoutManager(castLayoutManager);
         rvCast.setAdapter(castAdapter);
 
+        // Crew
         CrewRecyclerViewAdapter crewAdapter = new CrewRecyclerViewAdapter(getApplicationContext(), movie.getCrew());
         LinearLayoutManager crewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rvCrew.setLayoutManager(crewLayoutManager);
         rvCrew.setAdapter(crewAdapter);
+
+        // Set movie trailer
+        final String trailerUrl = movie.getTrailerUrl();
+        if (trailerUrl != null) {
+            btnTrailer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(trailerUrl));
+                    startActivity(i);
+                }
+            });
+        }
 
     }
 

@@ -66,6 +66,8 @@ public class TrendingActivity extends AppCompatActivity {
         BottomNavigationViewHelper.removeShiftMode(navigation);
 
         rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList.setNestedScrollingEnabled(false);
+
         tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
         pbLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 

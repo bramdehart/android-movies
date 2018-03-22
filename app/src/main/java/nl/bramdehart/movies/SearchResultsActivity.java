@@ -35,8 +35,11 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Bind
         tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
         pbLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
         tvResultsTitle = (TextView) findViewById(R.id.tv_results_title);
+
+        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList.setNestedScrollingEnabled(false);
+
 
         // Receive data
         Intent intent = getIntent();
