@@ -117,11 +117,13 @@ public class TrendingActivity extends AppCompatActivity {
         // Loop throught the JSON array results
         for (int i = 0; i < moviesJSONArray.length(); i++) {
             JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            String posterPath = movieJSONObject.getString("poster_path");
-            int movieId = movieJSONObject.getInt("id");
+            if (!movieJSONObject.isNull("poster_path")) {
+                String posterPath = movieJSONObject.getString("poster_path");
+                int movieId = movieJSONObject.getInt("id");
 
-            // Add new movie object to the movie array
-            movies.add(new Movie(movieId, posterPath));
+                // Add new movie object to the movie array
+                movies.add(new Movie(movieId, posterPath));
+            }
         }
     }
 

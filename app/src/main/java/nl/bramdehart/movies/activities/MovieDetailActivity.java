@@ -1,5 +1,6 @@
 package nl.bramdehart.movies.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,10 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -57,6 +60,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieRunTime;
     private TextView tvMovieOverview;
     private TextView tvMovieReleaseDate;
+    private TextView tvCrew;
+    private TextView tvCast;
     private TextView tvErrorMessage;
     private Button btnFavorites;
     private ProgressBar pbLoadingIndicator;
@@ -88,6 +93,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         btnFavorites = findViewById(R.id.btn_favorites);
         rvCast = findViewById(R.id.rv_cast);
         rvCrew = findViewById(R.id.rv_crew);
+        tvCrew = findViewById(R.id.tv_crew);
+        tvCast = findViewById(R.id.tv_cast);
         btnTrailer = findViewById(R.id.btn_trailer);
 
         // Receive data and starts the query
@@ -144,7 +151,7 @@ public class MovieDetailActivity extends AppCompatActivity {
      * Shows movie details.
      */
     private void showMovieDetails() {
-        tvErrorMessage.setVisibility(View.INVISIBLE);
+        tvErrorMessage.setVisibility(View.GONE);
         llMovieInfoHolder.setVisibility(View.VISIBLE);
     }
 
@@ -152,7 +159,7 @@ public class MovieDetailActivity extends AppCompatActivity {
      * Shows error message.
      */
     private void showErrorMessage() {
-        llMovieInfoHolder.setVisibility(View.INVISIBLE);
+        llMovieInfoHolder.setVisibility(View.GONE);
         tvErrorMessage.setVisibility(View.VISIBLE);
     }
 
@@ -162,18 +169,38 @@ public class MovieDetailActivity extends AppCompatActivity {
      * @param movieJSONString
      */
     private void parseMovieData(String movieJSONString) throws JSONException {
-
         // Get JSON values
         JSONObject movieJSONObject = new JSONObject(movieJSONString);
+
         int movieId = movieJSONObject.getInt("id");
         String movieTitle = movieJSONObject.getString("title");
-        String moviePosterPath = movieJSONObject.getString("poster_path");
-        String movieBackDropPath = movieJSONObject.getString("backdrop_path");
-        int movieRunTime = movieJSONObject.getInt("runtime");
-        double movieRating = movieJSONObject.getDouble("vote_average");
-        String movieOverview = movieJSONObject.getString("overview");
-        String movieReleaseDate = movieJSONObject.getString("release_date");
 
+        String moviePosterPath = null;
+        if (!movieJSONObject.isNull("poster_path")) {
+            moviePosterPath = movieJSONObject.getString("poster_path");
+        }
+
+        String movieBackDropPath = null;
+        if (!movieJSONObject.isNull("backdrop_path")) {
+            movieBackDropPath = movieJSONObject.getString("backdrop_path");
+        }
+
+        Integer movieRunTime = null;
+        if (!movieJSONObject.isNull("runtime")) {
+            movieRunTime = movieJSONObject.getInt("runtime");
+        }
+
+        double movieRating = movieJSONObject.getDouble("vote_average");
+
+        String movieOverview = null;
+        if (!movieJSONObject.isNull("overview") && movieJSONObject.getString("overview").trim().length() > 0) {
+            movieOverview = movieJSONObject.getString("overview");
+        }
+
+        String movieReleaseDate = null;
+        if (!movieJSONObject.isNull("release_date")) {
+            movieReleaseDate = movieJSONObject.getString("release_date");
+        }
         // Get movie categories
         ArrayList<String> movieGenres = new ArrayList<String>();
         JSONArray movieGenresJSONArray = movieJSONObject.getJSONArray("genres");
@@ -212,8 +239,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         String trailerId = null;
         JSONObject videoJSONObject = movieJSONObject.getJSONObject("videos");
         JSONArray videoJSONArray = videoJSONObject.getJSONArray("results");
-        if (videoJSONArray.length() > 0) {
-            trailerId = videoJSONArray.getJSONObject(0).getString("key");
+        for (int i = 0; i < videoJSONArray.length(); i++) {
+            if (videoJSONArray.getJSONObject(i).getString("type").equals("Trailer")) {
+                trailerId = videoJSONArray.getJSONObject(i).getString("key");
+                break;
+            }
         }
 
         // Initialize movie
@@ -225,15 +255,36 @@ public class MovieDetailActivity extends AppCompatActivity {
      */
     private void bindMovieData() {
         // Set activity components
-        ImageView headerBackdrop = (ImageView) findViewById(R.id.header_backdrop);
-        Picasso.get().load(movie.getBackDropLarge()).into(headerBackdrop);
+        ImageView headerBackdrop = findViewById(R.id.header_backdrop);
+        if (movie.getBackDropLarge() != null) {
+            Picasso.get().load(movie.getBackDropLarge()).into(headerBackdrop);
+        }
+        else {
+            Picasso.get().load(R.drawable.backdrop_fallback).into(headerBackdrop);
+        }
+
         setTitle(movie.getTitle());
 
         // Set text values
         tvMovieTitle.setText(movie.getTitle());
-        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " " + getResources().getString(R.string.minutes));
-        tvMovieOverview.setText(movie.getOverview());
-        tvMovieReleaseDate.setText(movie.getReleaseDate());
+        if (movie.getRunTime() != null) {
+            tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " " + getResources().getString(R.string.minutes));
+        } else {
+            tvMovieRunTime.setText(R.string.unknown);
+        }
+
+        if (movie.getOverview() != null) {
+            tvMovieOverview.setText(movie.getOverview());
+        } else {
+            tvMovieOverview.setText("Geen beschrijving beschikbaar");
+        }
+
+        if (movie.getReleaseDate() != null) {
+            tvMovieReleaseDate.setText(movie.getReleaseDate());
+        }
+        else {
+            tvMovieReleaseDate.setText(R.string.unknown);
+        }
 
         // Load images
         Picasso.get().load(movie.getPosterLarge()).into(ivMoviePoster);
@@ -275,17 +326,27 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         }
 
-        // Cast
-        CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getApplicationContext(), movie.getCast());
-        LinearLayoutManager castLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvCast.setLayoutManager(castLayoutManager);
-        rvCast.setAdapter(castAdapter);
+        // Casts
+        if (movie.getCast().size() > 0) {
+            CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getApplicationContext(), movie.getCast());
+            LinearLayoutManager castLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvCast.setLayoutManager(castLayoutManager);
+            rvCast.setAdapter(castAdapter);
+        } else {
+            tvCast.setVisibility(View.GONE);
+            rvCast.setVisibility(View.GONE);
+        }
 
         // Crew
-        CrewRecyclerViewAdapter crewAdapter = new CrewRecyclerViewAdapter(getApplicationContext(), movie.getCrew());
-        LinearLayoutManager crewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rvCrew.setLayoutManager(crewLayoutManager);
-        rvCrew.setAdapter(crewAdapter);
+        if (movie.getCrew().size() > 0) {
+            CrewRecyclerViewAdapter crewAdapter = new CrewRecyclerViewAdapter(getApplicationContext(), movie.getCrew());
+            LinearLayoutManager crewLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rvCrew.setLayoutManager(crewLayoutManager);
+            rvCrew.setAdapter(crewAdapter);
+        } else {
+            tvCrew.setVisibility(View.GONE);
+            rvCrew.setVisibility(View.GONE);
+        }
 
         // Movie trailer
         final String trailerUrl = movie.getTrailerUrl();
@@ -298,6 +359,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                     startActivity(i);
                 }
             });
+        } else {
+            btnTrailer.setText("Geen trailer beschikbaar");
+            btnTrailer.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_disabled));
         }
 
     }
@@ -354,6 +418,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(URL... urls) {
             URL searchUrl = urls[0];
+            Log.e("url", searchUrl.toString());
             String TMDBResults = null;
             try {
                 TMDBResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);

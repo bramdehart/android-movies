@@ -17,7 +17,7 @@ public class Movie {
     private String posterSmall;
     private String posterLarge;
     private String backDropLarge;
-    private int runTime;
+    private Integer runTime;
     private double rating;
     private String overview;
     private String releaseDate;
@@ -58,7 +58,7 @@ public class Movie {
      * @param crew the movie crew
      * @param trailerId the movie YouTube id
      */
-    public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId) {
+    public Movie(int movieId, String title, String posterPath, String backDropPath, Integer runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId) {
         this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
@@ -101,7 +101,7 @@ public class Movie {
         return backDropLarge;
     }
 
-    public int getRunTime() {
+    public Integer getRunTime() {
         return runTime;
     }
 
@@ -143,8 +143,12 @@ public class Movie {
      * The poster url path
      */
     private void setPosters(String posterPath) {
-        posterSmall = TMDB_IMG_BASE_URL + "w200" + posterPath;
-        posterLarge = TMDB_IMG_BASE_URL + "w500" + posterPath;
+        if (posterPath != null) {
+            posterSmall = TMDB_IMG_BASE_URL + "w200" + posterPath;
+            posterLarge = TMDB_IMG_BASE_URL + "w500" + posterPath;
+        } else {
+            posterSmall = posterLarge = null;
+        }
     }
 
     /**
@@ -153,7 +157,11 @@ public class Movie {
      * The backdrop url path
      */
     private void setBackDrops(String backDropPath) {
-        backDropLarge = TMDB_IMG_BASE_URL + "w500" + backDropPath;
+        if (backDropPath != null) {
+            backDropLarge = TMDB_IMG_BASE_URL + "w500" + backDropPath;
+        } else {
+            backDropLarge = null;
+        }
     }
 
     /**

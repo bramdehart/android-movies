@@ -116,15 +116,17 @@ public class SearchResultsActivity extends AppCompatActivity {
         // Loop through json array
         for (int i = 0; i < moviesJSONArray.length(); i++) {
             JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            int movieId = movieJSONObject.getInt("id");
-            String posterPath = movieJSONObject.getString("poster_path");
+            if (!movieJSONObject.isNull("poster_path")) {
+                int movieId = movieJSONObject.getInt("id");
+                String posterPath = movieJSONObject.getString("poster_path");
 
-            // Add movie object
-            movies.add(new Movie(movieId, posterPath));
+                // Add movie object
+                movies.add(new Movie(movieId, posterPath));
+            }
         }
 
         // Set result count
-        tvResultsTitle.setText(moviesJSONArray.length() + getResources().getString(R.string.results_heading) + " '" + searchQuery + "'");
+        tvResultsTitle.setText(movies.size() + " " +  getResources().getString(R.string.results_heading) + " '" + searchQuery + "'");
     }
 
     /**
