@@ -27,6 +27,9 @@
     <string name="minutes">minutes</string>
     <string name="unknown">Onbekend</string>
     <string name="results_heading">results for</string>
+    <string name="no_favorite_movies">You don\'t have any favorite movies. Add one by going to a movie\'s detail page.</string>
+    <string name="no_description">No description available</string>
+    <string name="no_trailer">No trailer available</string>
 
     <string name="title_activity_book_detail"></string>
     <string name="title_activity_search"></string>

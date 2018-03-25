@@ -27,4 +27,8 @@
     <string name="minutes">Minuten</string>
     <string name="unknown">unbekannt</string>
     <string name="results_heading">Ergebnisse für</string>
+    <string name="no_favorite_movies">Du hast noch keine Lieblingsfilme gespeichert. Sie können einen hinzufügen, indem Sie zu einer Filmseite gehen.</string>
+    <string name="no_description">Keine Beschreibung verfügbar</string>
+    <string name="no_trailer">Kein Trailer verfügbar</string>
+
 </resources>

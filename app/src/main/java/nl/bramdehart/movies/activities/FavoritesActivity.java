@@ -11,6 +11,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class FavoritesActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
+    private TextView tvNoFavorites;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,6 +76,12 @@ public class FavoritesActivity extends AppCompatActivity {
         Cursor cursorFavorites = getFavorites();
         initMovies(cursorFavorites);
         populateRecyclerView();
+
+        // Hide text if there are favorite movies present
+        tvNoFavorites = findViewById(R.id.tv_no_favorites);
+        if (movies.size() > 0) {
+            tvNoFavorites.setVisibility(View.GONE);
+        }
     }
 
     /**

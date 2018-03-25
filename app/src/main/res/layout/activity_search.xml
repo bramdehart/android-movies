@@ -24,13 +24,20 @@
             android:hint="@string/search_a_movie"
             android:textColor="#fff"
             android:textColorHint="#fff"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:layout_marginBottom="15dp"/>
 
         <Button
             android:id="@+id/btn_search_movie"
             android:layout_width="match_parent"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
             android:layout_height="wrap_content"
-            android:text="@string/search_movie" />
+            android:height="40dp"
+            android:maxHeight="40dp"
+            android:minHeight="40dp"
+            android:text="@string/search_movie"
+            android:background="@drawable/btn_styling" />
 
     </LinearLayout>
 

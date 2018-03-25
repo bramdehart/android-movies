@@ -27,4 +27,8 @@
     <string name="minutes">minuten</string>
     <string name="unknown">Onbekend</string>
     <string name="results_heading">resultaten voor</string>
+    <string name="no_favorite_movies">Je hebt nog geen favoriete films. Voeg er één toe door naar een filmpagina te gaan.</string>
+    <string name="no_description">Geen beschrijving beschikbaar</string>
+    <string name="no_trailer">Geen trailer beschikbaar</string>
+
 </resources>

@@ -276,7 +276,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (movie.getOverview() != null) {
             tvMovieOverview.setText(movie.getOverview());
         } else {
-            tvMovieOverview.setText("Geen beschrijving beschikbaar");
+            tvMovieOverview.setText(R.string.no_description);
         }
 
         if (movie.getReleaseDate() != null) {
@@ -360,7 +360,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 }
             });
         } else {
-            btnTrailer.setText("Geen trailer beschikbaar");
+            btnTrailer.setText(R.string.no_trailer);
             btnTrailer.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_disabled));
         }
 
