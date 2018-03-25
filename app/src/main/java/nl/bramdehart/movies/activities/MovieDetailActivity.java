@@ -4,9 +4,12 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -91,6 +94,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         movieId = intent.getExtras().getInt("MovieId");
         makeTMDBMovieDetailQuery(movieId);
+
+        // Set ratingbar color
+        Drawable progress = rbRatingBar.getProgressDrawable();
+        DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
 
         // Create a database helper
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
@@ -224,7 +231,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Set text values
         tvMovieTitle.setText(movie.getTitle());
-        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " "+getResources().getString(R.string.minutes));
+        tvMovieRunTime.setText(String.valueOf(movie.getRunTime()) + " " + getResources().getString(R.string.minutes));
         tvMovieOverview.setText(movie.getOverview());
         tvMovieReleaseDate.setText(movie.getReleaseDate());
 
@@ -242,7 +249,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Append genres
         ArrayList<String> genres = movie.getGenres();
-        tvMovieGenres.setText("");
+        tvMovieGenres.setText(getResources().getString(R.string.genres) + ": ");
         if (genres.size() == 0) {
             tvMovieGenres.append(getResources().getString(R.string.unknown));
         } else {
@@ -256,7 +263,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         // Append production companies
         ArrayList<String> productionCompanies = movie.getProductionCompanies();
-        tvMovieProductionCompanies.setText("");
+        tvMovieProductionCompanies.setText(getResources().getString(R.string.producers) + ": ");
         if (productionCompanies.size() == 0) {
             tvMovieProductionCompanies.append(getResources().getString(R.string.unknown));
         } else {
