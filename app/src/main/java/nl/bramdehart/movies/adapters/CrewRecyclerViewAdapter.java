@@ -22,6 +22,10 @@ import nl.bramdehart.movies.models.Crew;
  * Created by Bram on 22/03/2018.
  */
 
+/**
+ * Crew recyclerview adapter.
+ * Adapter that is used by the crew recyclerview.
+ */
 public class CrewRecyclerViewAdapter extends RecyclerView.Adapter<CrewRecyclerViewAdapter.MyViewHolder>{
 
     private Context context;
@@ -43,6 +47,7 @@ public class CrewRecyclerViewAdapter extends RecyclerView.Adapter<CrewRecyclerVi
 
     @Override
     public void onBindViewHolder(CrewRecyclerViewAdapter.MyViewHolder holder, final int position) {
+        // Assigns the results the the current item's components
         if (crew.get(position).getProfilePath() == "null") {
             Picasso.get().load(R.drawable.profile_placeholder).into(holder.ivProfile);
         } else {
@@ -66,11 +71,13 @@ public class CrewRecyclerViewAdapter extends RecyclerView.Adapter<CrewRecyclerVi
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            clCrewItem = (ConstraintLayout) itemView.findViewById(R.id.cl_crew_item);
-            ivProfile = (ImageView) itemView.findViewById(R.id.iv_crew_profile);
-            tvName = (TextView) itemView.findViewById(R.id.tv_crew_name);
-            tvJob = (TextView) itemView.findViewById(R.id.tv_crew_job);
+            // Binds the current view item's components
+            clCrewItem = itemView.findViewById(R.id.cl_crew_item);
+            ivProfile = itemView.findViewById(R.id.iv_crew_profile);
+            tvName = itemView.findViewById(R.id.tv_crew_name);
+            tvJob = itemView.findViewById(R.id.tv_crew_job);
 
+            // Set animation on imageview
             Animation fadeInAnimation = AnimationUtils.loadAnimation(clCrewItem.getContext(), R.anim.fade_in);
             ivProfile.startAnimation(fadeInAnimation); //Set animation to your ImageView
         }

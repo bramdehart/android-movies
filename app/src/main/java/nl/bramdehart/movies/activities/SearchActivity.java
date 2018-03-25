@@ -10,14 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import nl.bramdehart.movies.R;
-import nl.bramdehart.movies.helpers.BottomNavigationViewHelper;
 
+/**
+ * Search activity.
+ * Used to make a search call.
+ */
 public class SearchActivity extends AppCompatActivity {
 
-    private TextView tvTextMessage;
     private EditText etSearchBox;
     private Button btnSearchMovie;
 
@@ -42,6 +43,9 @@ public class SearchActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Submits a search and starts a search result activity.
+     */
     private void submitSearch() {
         Intent intent = new Intent(getApplicationContext(), SearchResultsActivity.class);
         String TMDBQuery = etSearchBox.getText().toString();
@@ -59,12 +63,11 @@ public class SearchActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        // Modify bottombar animation and active item
+        // Set bottombar active item
         navigation.setSelectedItemId(R.id.navigation_search);
-        BottomNavigationViewHelper.removeShiftMode(navigation);
 
-        etSearchBox = (EditText) findViewById(R.id.et_search_box);
-        btnSearchMovie = (Button) findViewById(R.id.btn_search_movie);
+        etSearchBox = findViewById(R.id.et_search_box);
+        btnSearchMovie = findViewById(R.id.btn_search_movie);
 
         // Set on click listener on button
         btnSearchMovie.setOnClickListener(new View.OnClickListener()

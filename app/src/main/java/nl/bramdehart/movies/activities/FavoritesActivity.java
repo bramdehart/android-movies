@@ -18,9 +18,12 @@ import nl.bramdehart.movies.adapters.MovieRecyclerViewAdapter;
 import nl.bramdehart.movies.R;
 import nl.bramdehart.movies.data.FavoritesContract;
 import nl.bramdehart.movies.data.FavoritesDbHelper;
-import nl.bramdehart.movies.helpers.BottomNavigationViewHelper;
 import nl.bramdehart.movies.models.Movie;
 
+/**
+ * Favorites activity.
+ * Used to show the user's favorite movies.
+ */
 public class FavoritesActivity extends AppCompatActivity {
 
     private SQLiteDatabase mDatabase;
@@ -53,22 +56,22 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
 
-        // Modify bottombar animation and active item
+        // Set bottombar active item
         navigation.setSelectedItemId(R.id.navigation_favorites);
-        BottomNavigationViewHelper.removeShiftMode(navigation);
 
         // Create a database helper
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
-        // Get writable database
         mDatabase = dbHelper.getWritableDatabase();
+
         // Get favorites
         Cursor cursorFavorites = getFavorites();
+
         // Initialize movies
         initMovies(cursorFavorites);
         populateRecyclerView();
@@ -90,6 +93,9 @@ public class FavoritesActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Populates the recyclerview with the movies defined in the movie array.
+     */
     private void populateRecyclerView() {
         MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getApplicationContext(), movies);
 
@@ -115,7 +121,7 @@ public class FavoritesActivity extends AppCompatActivity {
      */
     private void initMovies(Cursor cursorMovies) {
         try {
-            movies = new ArrayList<Movie>();
+            movies = new ArrayList<>();
             while (cursorMovies.moveToNext()) {
                 int movieId = cursorMovies.getInt(cursorMovies.getColumnIndex("movieId"));
                 String posterPath = cursorMovies.getString(cursorMovies.getColumnIndex("posterPath"));

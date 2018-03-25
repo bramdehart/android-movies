@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package nl.bramdehart.movies.data;
 
 import android.net.Uri;
@@ -31,15 +32,15 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
-    final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
-    final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
-    final static String PARAM_QUERY = "query";
-    final static String PARAM_API_KEY = "api_key";
-    final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
-    final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
-    final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
-    final static String PARAM_LANGUAGE = "language";
+    private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
+    private final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
+    private final static String PARAM_QUERY = "query";
+    private final static String PARAM_API_KEY = "api_key";
+    private final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
+    private final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
+    private final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
+    private final static String PARAM_LANGUAGE = "language";
 
     /**
      * Builds the URL used to query on TMDB.
@@ -135,6 +136,11 @@ public class NetworkUtils {
         }
     }
 
+    /**
+     * Gets the current system language used as a parameter in the API calls.
+     * @return String
+     * The system language as a string
+     */
     private static String getLanguage() {
         String language = Locale.getDefault().getLanguage();
         if (language.equals("nl")) {

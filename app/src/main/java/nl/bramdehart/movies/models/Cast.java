@@ -10,7 +10,7 @@ public class Cast {
     private String profilePath;
     private String profileUrl;
 
-    final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
+    private final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
     public Cast() {
     }

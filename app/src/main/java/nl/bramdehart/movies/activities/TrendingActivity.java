@@ -25,16 +25,18 @@ import java.util.ArrayList;
 import nl.bramdehart.movies.adapters.MovieRecyclerViewAdapter;
 import nl.bramdehart.movies.data.NetworkUtils;
 import nl.bramdehart.movies.R;
-import nl.bramdehart.movies.helpers.BottomNavigationViewHelper;
 import nl.bramdehart.movies.models.Movie;
 
+/**
+ * Trending activity.
+ * The startup activity that show the current trending movies.
+ */
 public class TrendingActivity extends AppCompatActivity {
 
     private TextView tvErrorMessage;
     private ProgressBar pbLoadingIndicator;
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,52 +65,69 @@ public class TrendingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        // Modify bottombar animation and active item
+        // Set bottombar active item
         navigation.setSelectedItemId(R.id.navigation_trending);
-        BottomNavigationViewHelper.removeShiftMode(navigation);
 
-        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
+        tvErrorMessage = findViewById(R.id.tv_error_message);
+        pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
 
-        tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
-        pbLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-
+        // Starts the query
         makeTMDBTrendingQuery();
     }
 
+    /**
+     * Makes the query to get current trending movies.
+     */
     private void makeTMDBTrendingQuery() {
         URL TMDBTrendingURL = NetworkUtils.buildTrendingUrl();
         new TMDBQueryTask().execute(TMDBTrendingURL);
     }
 
+    /**
+     * Shows the recyclerview.
+     */
     private void showRecyclerView() {
         tvErrorMessage.setVisibility(View.INVISIBLE);
         rvMovieList.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Shows the error message.
+     */
     private void showErrorMessage() {
         rvMovieList.setVisibility(View.INVISIBLE);
         tvErrorMessage.setVisibility(View.VISIBLE);
     }
 
     /**
+     * Parses the movies JSON string and stores them into the movie array.
+     *
      * @param moviesJSONString
      */
     private void parseMovies(String moviesJSONString) throws JSONException {
         JSONObject resultJSONObject = new JSONObject(moviesJSONString);
         JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        movies = new ArrayList<Movie>();
+        movies = new ArrayList<>();
+
+        // Loop throught the JSON array results
         for (int i = 0; i < moviesJSONArray.length(); i++) {
             JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
             String posterPath = movieJSONObject.getString("poster_path");
             int movieId = movieJSONObject.getInt("id");
+
+            // Add new movie object to the movie array
             movies.add(new Movie(movieId, posterPath));
         }
     }
 
+    /**
+     * Populates the recyclerview with the retrieved movies.
+     */
     private void populateRecyclerView() {
         MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getApplicationContext(), movies);
 
@@ -128,6 +147,9 @@ public class TrendingActivity extends AppCompatActivity {
         rvMovieList.setAdapter(rvAdapter);
     }
 
+    /**
+     * Inner class that takes care of the query task.
+     */
     public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -147,6 +169,9 @@ public class TrendingActivity extends AppCompatActivity {
             return TMDBTrendingResults;
         }
 
+        /**
+         * Executes when the API call is finished.
+         */
         @Override
         protected void onPostExecute(String s) {
             pbLoadingIndicator.setVisibility(View.INVISIBLE);

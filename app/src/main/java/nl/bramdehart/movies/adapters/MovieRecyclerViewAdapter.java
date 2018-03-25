@@ -24,6 +24,10 @@ import nl.bramdehart.movies.models.Movie;
  * Created by Bram on 17/03/2018.
  */
 
+/**
+ * Movie recyclerview adapter.
+ * Adapter that is used by the movie recyclerview.
+ */
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
@@ -44,18 +48,19 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MovieRecyclerViewAdapter.MyViewHolder holder, final int position) {
+        // Assigns the results the the current item's components
         Picasso.get().load(movies.get(position).getPosterSmall()).into(holder.ivMoviePoster);
 
         // Set click listener
         holder.cvMovieItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Init new intend and pass the movie ID data
                 Intent intent = new Intent(context, MovieDetailActivity.class);
-
-                // Passing data to the Movie Detail activity
                 intent.putExtra("MovieId", movies.get(position).getMovieId());
 
+                // Start the new movie detail activity
                 context.startActivity(intent);
             }
         });
@@ -73,11 +78,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
-            cvMovieItem = (CardView) itemView.findViewById(R.id.cv_movie_item);
+            // Binds the current view item's components
+            cvMovieItem = itemView.findViewById(R.id.cv_movie_item);
             cvMovieItem.setBackgroundColor(Color.parseColor("#000000"));
-            ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            ivMoviePoster = itemView.findViewById(R.id.iv_movie_poster);
 
+            // Set animation on imageview
             Animation fadeInAnimation = AnimationUtils.loadAnimation(cvMovieItem.getContext(), R.anim.fade_in);
             ivMoviePoster.startAnimation(fadeInAnimation); //Set animation to your ImageView
         }

@@ -41,8 +41,11 @@ import nl.bramdehart.movies.models.Cast;
 import nl.bramdehart.movies.models.Crew;
 import nl.bramdehart.movies.models.Movie;
 
+/**
+ * Movie detail activity.
+ * Used to show movie details when clicked on a movie poster.
+ */
 public class MovieDetailActivity extends AppCompatActivity {
-
 
     private TextView tvMovieTitle;
     private ImageView ivMoviePoster;
@@ -60,7 +63,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView rvCrew;
     private Button btnTrailer;
     private int movieId;
-
     private Movie movie;
     private SQLiteDatabase mDatabase;
 
@@ -69,33 +71,32 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
-        ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
-        tvMovieGenres = (TextView) findViewById(R.id.tv_movie_genres);
-        tvMovieProductionCompanies = (TextView) findViewById(R.id.tv_movie_production_companies);
-        tvMovieRunTime = (TextView) findViewById(R.id.tv_movie_runtime);
-        tvMovieReleaseDate = (TextView) findViewById(R.id.tv_movie_release_date);
-        tvMovieOverview = (TextView) findViewById(R.id.tv_movie_overview);
-        tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
-        pbLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-        llMovieInfoHolder = (LinearLayout) findViewById(R.id.ll_movie_info_holder);
-        rbRatingBar = (RatingBar) findViewById(R.id.rb_movie_rating);
-        btnFavorites = (Button) findViewById(R.id.btn_favorites);
-        rvCast = (RecyclerView) findViewById(R.id.rv_cast);
-        rvCrew = (RecyclerView) findViewById(R.id.rv_crew);
-        btnTrailer = (Button) findViewById(R.id.btn_trailer);
+        tvMovieTitle = findViewById(R.id.tv_movie_title);
+        ivMoviePoster = findViewById(R.id.iv_movie_poster);
+        tvMovieGenres = findViewById(R.id.tv_movie_genres);
+        tvMovieProductionCompanies = findViewById(R.id.tv_movie_production_companies);
+        tvMovieRunTime = findViewById(R.id.tv_movie_runtime);
+        tvMovieReleaseDate = findViewById(R.id.tv_movie_release_date);
+        tvMovieOverview = findViewById(R.id.tv_movie_overview);
+        tvErrorMessage = findViewById(R.id.tv_error_message);
+        pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+        llMovieInfoHolder = findViewById(R.id.ll_movie_info_holder);
+        rbRatingBar = findViewById(R.id.rb_movie_rating);
+        btnFavorites = findViewById(R.id.btn_favorites);
+        rvCast = findViewById(R.id.rv_cast);
+        rvCrew = findViewById(R.id.rv_crew);
+        btnTrailer = findViewById(R.id.btn_trailer);
 
-        // Receive data
+        // Receive data and starts the query
         Intent intent = getIntent();
         movieId = intent.getExtras().getInt("MovieId");
         makeTMDBMovieDetailQuery(movieId);
 
         // Create a database helper
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
-        // Get writable database
         mDatabase = dbHelper.getWritableDatabase();
 
-        // Set button favorites text
+        // Set favorites button text
         String txtBtnFavorites;
         if (isInFavorites()) {
             txtBtnFavorites = getResources().getString(R.string.remove_from_favorites);
@@ -112,32 +113,45 @@ public class MovieDetailActivity extends AppCompatActivity {
                 if (isInFavorites() && removeFromFavorites()) {
                     Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.favorites_removed_1)+" '" + movie.getTitle() + "' " + getResources().getString(R.string.favorites_removed_2), duration);
                     toast.show();
-                    btnFavorites.setText(getResources().getString(R.string.remove_from_favorites));
+                    btnFavorites.setText(getResources().getString(R.string.add_to_favorites));
                 } else if (addToFavorites()) {
                     Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.favorites_added_1)+" '" + movie.getTitle() + "' "+getResources().getString(R.string.favorites_added_2), duration);
                     toast.show();
-                    btnFavorites.setText(getResources().getString(R.string.add_to_favorites));
+                    btnFavorites.setText(getResources().getString(R.string.remove_from_favorites));
                 }
             }
         });
     }
 
+    /**
+     * Inits a new movie detail query.
+     *
+     * @param movieId
+     */
     private void makeTMDBMovieDetailQuery(int movieId) {
         URL TMDBMovieDetailURL = NetworkUtils.buildMovieDetailUrl(movieId);
         new MovieDetailActivity.TMDBQueryTask().execute(TMDBMovieDetailURL);
     }
 
+    /**
+     * Shows movie details.
+     */
     private void showMovieDetails() {
         tvErrorMessage.setVisibility(View.INVISIBLE);
         llMovieInfoHolder.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Shows error message.
+     */
     private void showErrorMessage() {
         llMovieInfoHolder.setVisibility(View.INVISIBLE);
         tvErrorMessage.setVisibility(View.VISIBLE);
     }
 
     /**
+     * Parse the json string data to a valid Movie object.
+     *
      * @param movieJSONString
      */
     private void parseMovieData(String movieJSONString) throws JSONException {
@@ -195,15 +209,13 @@ public class MovieDetailActivity extends AppCompatActivity {
             trailerId = videoJSONArray.getJSONObject(0).getString("key");
         }
 
-        for (int i = 0; i < crewJSONArray.length(); i++) {
-            JSONObject crewJSONObject = crewJSONArray.getJSONObject(i);
-            crew.add(new Crew(crewJSONObject.getString("name"), crewJSONObject.getString("job"), crewJSONObject.getString("profile_path")));
-        }
-
         // Initialize movie
         movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies, cast, crew, trailerId);
     }
 
+    /**
+     * Binds the movie data from the Movie model to the activity's components.
+     */
     private void bindMovieData() {
         // Set activity components
         ImageView headerBackdrop = (ImageView) findViewById(R.id.header_backdrop);
@@ -256,7 +268,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         }
 
-
         // Cast
         CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getApplicationContext(), movie.getCast());
         LinearLayoutManager castLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -269,7 +280,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         rvCrew.setLayoutManager(crewLayoutManager);
         rvCrew.setAdapter(crewAdapter);
 
-        // Set movie trailer
+        // Movie trailer
         final String trailerUrl = movie.getTrailerUrl();
         if (trailerUrl != null) {
             btnTrailer.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +295,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks if the current movie is in the user's favorites.
+     *
+     * @return Boolean
+     * The movie is in the user's favorites.
+     */
     private Boolean isInFavorites() {
         Cursor mCursor = mDatabase.rawQuery(
                 "SELECT * FROM " + FavoritesContract.FavoritesEntry.TABLE_NAME +
@@ -293,6 +310,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         return mCursor.moveToFirst();
     }
 
+    /**
+     * Adds the current movie to the user's favorites using local storage.
+     *
+     * @return
+     * Succeeded to add the movie to the user's favorites.
+     */
     private Boolean addToFavorites() {
         ContentValues values = new ContentValues();
         // add values to record keys
@@ -301,10 +324,19 @@ public class MovieDetailActivity extends AppCompatActivity {
         return mDatabase.insert(FavoritesContract.FavoritesEntry.TABLE_NAME, null, values) > 0;
     }
 
+    /**
+     * Removes the movie from the user's favorites.
+     *
+     * @return
+     * Succeeded to remove the movie from the user's favorites.
+     */
     private Boolean removeFromFavorites() {
         return mDatabase.delete(FavoritesContract.FavoritesEntry.TABLE_NAME, FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID + " = " + movieId, null) > 0;
     }
 
+    /**
+     * Inner class that takes care of the query task.
+     */
     public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -324,6 +356,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             return TMDBResults;
         }
 
+        /**
+         * Executes when the API call is finished.
+         */
         @Override
         protected void onPostExecute(String s) {
             pbLoadingIndicator.setVisibility(View.INVISIBLE);

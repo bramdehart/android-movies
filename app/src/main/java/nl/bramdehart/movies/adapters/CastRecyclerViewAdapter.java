@@ -22,6 +22,10 @@ import nl.bramdehart.movies.models.Cast;
  * Created by Bram on 21/03/2018.
  */
 
+/**
+ * Cast recyclerview adapter
+ * Adapter that is used by the cast recyclerview.
+ */
 public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerViewAdapter.MyViewHolder> {
     private Context context;
     private List<Cast> cast;
@@ -42,6 +46,7 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
 
     @Override
     public void onBindViewHolder(CastRecyclerViewAdapter.MyViewHolder holder, final int position) {
+        // Assigns the results the the current item's components
         if (cast.get(position).getProfilePath() == "null") {
             Picasso.get().load(R.drawable.profile_placeholder).into(holder.ivProfile);
         } else {
@@ -64,13 +69,15 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            clCastItem = (ConstraintLayout) itemView.findViewById(R.id.cl_cast_item);
-            ivProfile = (ImageView) itemView.findViewById(R.id.iv_cast_profile);
-            tvName = (TextView) itemView.findViewById(R.id.tv_cast_name);
-            tvCharacter = (TextView) itemView.findViewById(R.id.tv_cast_character);
+            // Binds the current view item's components
+            clCastItem = itemView.findViewById(R.id.cl_cast_item);
+            ivProfile = itemView.findViewById(R.id.iv_cast_profile);
+            tvName = itemView.findViewById(R.id.tv_cast_name);
+            tvCharacter = itemView.findViewById(R.id.tv_cast_character);
 
+            // Set animation on imageview
             Animation fadeInAnimation = AnimationUtils.loadAnimation(clCastItem.getContext(), R.anim.fade_in);
-            ivProfile.startAnimation(fadeInAnimation); //Set animation to your ImageView
+            ivProfile.startAnimation(fadeInAnimation);
         }
     }
 }

@@ -23,6 +23,10 @@ import nl.bramdehart.movies.data.NetworkUtils;
 import nl.bramdehart.movies.R;
 import nl.bramdehart.movies.models.Movie;
 
+/**
+ * Search results activity.
+ * Used to display movie search results.
+ */
 public class SearchResultsActivity extends AppCompatActivity {
 
     private String searchQuery;
@@ -37,23 +41,26 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        // Bind
-        tvErrorMessage = (TextView) findViewById(R.id.tv_error_message);
-        pbLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
-        tvResultsTitle = (TextView) findViewById(R.id.tv_results_title);
+        // Bind components
+        tvErrorMessage = findViewById(R.id.tv_error_message);
+        pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
+        tvResultsTitle = findViewById(R.id.tv_results_title);
 
-        rvMovieList = (RecyclerView) findViewById(R.id.rv_movie_list);
+        rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
 
-
-        // Receive data
+        // Get received data from previous intent
         Intent intent = getIntent();
         searchQuery = intent.getExtras().getString("SearchQuery");
 
+        // Start search query
         URL TMDBSearchURL = NetworkUtils.buildSearchUrl(searchQuery);
         new SearchResultsActivity.TMDBQueryTask().execute(TMDBSearchURL);
     }
 
+    /**
+     * Inner class that takes care of the query task.
+     */
     public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -74,6 +81,9 @@ public class SearchResultsActivity extends AppCompatActivity {
             return TMDBSearchResults;
         }
 
+        /**
+         * Executes when the API call is finished.
+         */
         @Override
         protected void onPostExecute(String s) {
             pbLoadingIndicator.setVisibility(View.INVISIBLE);
@@ -93,34 +103,50 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     /**
+     * Parses the movie JSON string and inserts the results as a new Movie object into the Movie array.
+     *
      * @param moviesJSONString
+     * The JSON string containing the results.
      */
     private void parseMovies(String moviesJSONString) throws JSONException {
         JSONObject resultJSONObject = new JSONObject(moviesJSONString);
         JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
         movies = new ArrayList<Movie>();
+
+        // Loop through json array
         for (int i = 0; i < moviesJSONArray.length(); i++) {
             JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
             int movieId = movieJSONObject.getInt("id");
             String posterPath = movieJSONObject.getString("poster_path");
+
+            // Add movie object
             movies.add(new Movie(movieId, posterPath));
         }
 
-        // Set title
+        // Set result count
         tvResultsTitle.setText(moviesJSONArray.length() + getResources().getString(R.string.results_heading) + " '" + searchQuery + "'");
     }
 
+    /**
+     * Populates the recyclerview with the retrieved movies.
+     */
     private void populateRecyclerView() {
         MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getApplicationContext(), movies);
         rvMovieList.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         rvMovieList.setAdapter(rvAdapter);
     }
 
+    /**
+     * Show recycler view.
+     */
     private void showRecyclerView() {
         tvErrorMessage.setVisibility(View.INVISIBLE);
         rvMovieList.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Show error message.
+     */
     private void showErrorMessage() {
         rvMovieList.setVisibility(View.INVISIBLE);
         tvErrorMessage.setVisibility(View.VISIBLE);
