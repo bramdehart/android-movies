@@ -100,7 +100,7 @@ public class FavoritesActivity extends AppCompatActivity {
                 null,
                 null,
                 null,
-                FavoritesContract.FavoritesEntry.COLUMN_TIMESTAMP
+                FavoritesContract.FavoritesEntry.COLUMN_TIMESTAMP + " DESC"
         );
     }
 

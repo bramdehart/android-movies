@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="15dp"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:stepSize="0.1" />
@@ -85,8 +85,12 @@
                     android:id="@+id/btn_favorites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="15dp"
                     android:textColor="#ffffff"
+                    android:textSize="16sp"
+                    android:height="40dp"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
                     android:text="@string/add_to_my_favorites"
                     android:background="@drawable/btn_styling" />
 
@@ -123,6 +127,10 @@
                     android:textColor="#ffffff"
                     android:layout_marginBottom="15dp"
                     android:text="@string/watch_trailer"
+                    android:textSize="16sp"
+                    android:height="40dp"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
                     android:background="@drawable/btn_styling"/>
 
             </LinearLayout>
