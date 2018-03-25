@@ -7,12 +7,11 @@ package nl.bramdehart.movies.models;
 public class Person {
 
     public String name;
-    public String profilePath;
-    public String profileUrl;
-    public final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
+    String profilePath;
+    private String profileUrl;
+    private final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
-    public Person() {
-
+    Person() {
     }
 
     public String getName() {
@@ -27,7 +26,7 @@ public class Person {
         return profileUrl;
     }
 
-    public void setProfileUrl(String profilePath) {
+    void setProfileUrl(String profilePath) {
         profileUrl = TMDB_IMG_BASE_URL + "w300" + profilePath;
     }
 }

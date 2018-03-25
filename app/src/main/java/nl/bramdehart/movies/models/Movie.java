@@ -16,7 +16,6 @@ public class Movie {
     private String posterPath;
     private String posterSmall;
     private String posterLarge;
-    private String backDropSmall;
     private String backDropLarge;
     private int runTime;
     private double rating;
@@ -27,18 +26,38 @@ public class Movie {
     private ArrayList<String> productionCompanies;
     private ArrayList<Crew> crew;
     private ArrayList<Cast> cast;
-
-    final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
-    final static String YT_MOVIE_BASE_URL = "https://www.youtube.com/watch";
+    private final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
+    private final static String YT_MOVIE_BASE_URL = "https://www.youtube.com/watch";
 
     public Movie() {
     }
 
+    /**
+     * Inits a movie used by the movie recycler view.
+     * @param movieId the movie id
+     * @param posterPath the movie poster url
+     */
     public Movie(int movieId, String posterPath) {
         this.movieId = movieId;
         this.setPosters(posterPath);
     }
 
+    /**
+     * Inits a movie used in the detail activity.
+     * @param movieId the movie id
+     * @param title the movie title
+     * @param posterPath the movie poster url
+     * @param backDropPath the movie backdrop url
+     * @param runTime the movie runtime
+     * @param rating the movie rating
+     * @param overview the movie overview
+     * @param releaseDate the movie release date
+     * @param genres the movie genres
+     * @param productionCompanies the movie production companies
+     * @param cast the movie cast
+     * @param crew the movie crew
+     * @param trailerId the movie YouTube id
+     */
     public Movie(int movieId, String title, String posterPath, String backDropPath, int runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId) {
         this.movieId = movieId;
         this.title = title;
@@ -78,10 +97,6 @@ public class Movie {
         return posterPath;
     }
 
-    public String getBackDropSmall() {
-        return backDropSmall;
-    }
-
     public String getBackDropLarge() {
         return backDropLarge;
     }
@@ -118,25 +133,37 @@ public class Movie {
         return crew;
     }
 
+    public String getTrailerUrl() {
+        return trailerUrl;
+    }
+
+    /**
+     * Sets the poster path urls.
+     * @param posterPath String
+     * The poster url path
+     */
     private void setPosters(String posterPath) {
         posterSmall = TMDB_IMG_BASE_URL + "w200" + posterPath;
         posterLarge = TMDB_IMG_BASE_URL + "w500" + posterPath;
     }
 
+    /**
+     * Sets the backdrop urls.
+     * @param backDropPath String
+     * The backdrop url path
+     */
     private void setBackDrops(String backDropPath) {
-        backDropSmall = TMDB_IMG_BASE_URL + "w300" + backDropPath;
         backDropLarge = TMDB_IMG_BASE_URL + "w500" + backDropPath;
     }
 
+    /**
+     * Sets the trailer urls.
+     * @param trailerId String
+     * The YouTube movie id
+     */
     private void setTrailerUrl(String trailerId) {
         trailerUrl =  YT_MOVIE_BASE_URL + "?v=" + trailerId;
     }
-
-    public String getTrailerUrl() {
-        return trailerUrl;
-    }
-
-
 }
 
 
