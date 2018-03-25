@@ -1,23 +1,24 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.models;
 
 /**
  * Created by Bram on 21/03/2018.
  */
 
-public class Cast {
+public class Crew {
+
     private String name;
-    private String character;
+    private String job;
     private String profilePath;
     private String profileUrl;
 
     final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
-    public Cast() {
+    public Crew() {
     }
 
-    public Cast(String name, String character, String profilePath) {
+    public Crew(String name, String job, String profilePath) {
         this.name = name;
-        this.character = character;
+        this.job = job;
         this.profilePath = profilePath;
         setProfileUrl(profilePath);
     }
@@ -26,8 +27,8 @@ public class Cast {
         return name;
     }
 
-    public String getCharacter() {
-        return character;
+    public String getJob() {
+        return job;
     }
 
     public String getProfileUrl() {

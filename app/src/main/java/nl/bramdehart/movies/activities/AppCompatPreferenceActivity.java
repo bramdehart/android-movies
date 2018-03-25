@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

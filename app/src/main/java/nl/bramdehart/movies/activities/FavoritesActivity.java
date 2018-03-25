@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,8 +14,12 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import nl.bramdehart.movies.adapters.MovieRecyclerViewAdapter;
+import nl.bramdehart.movies.R;
 import nl.bramdehart.movies.data.FavoritesContract;
 import nl.bramdehart.movies.data.FavoritesDbHelper;
+import nl.bramdehart.movies.helpers.BottomNavigationViewHelper;
+import nl.bramdehart.movies.models.Movie;
 
 public class FavoritesActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
@@ -22,6 +21,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import nl.bramdehart.movies.adapters.MovieRecyclerViewAdapter;
+import nl.bramdehart.movies.data.NetworkUtils;
+import nl.bramdehart.movies.R;
+import nl.bramdehart.movies.helpers.BottomNavigationViewHelper;
+import nl.bramdehart.movies.models.Movie;
 
 public class TrendingActivity extends AppCompatActivity {
 

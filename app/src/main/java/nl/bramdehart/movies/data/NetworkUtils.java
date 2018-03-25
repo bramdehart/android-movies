@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.data;
 
 import android.net.Uri;
 import android.util.Log;

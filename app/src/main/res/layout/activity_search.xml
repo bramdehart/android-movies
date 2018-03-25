@@ -6,7 +6,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.bramdehart.movies.SearchActivity"
+    tools:context="nl.bramdehart.movies.activities.SearchActivity"
     android:background="#000000">
 
     <LinearLayout

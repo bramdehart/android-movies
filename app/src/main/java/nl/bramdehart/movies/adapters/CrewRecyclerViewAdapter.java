@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.adapters;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import nl.bramdehart.movies.R;
+import nl.bramdehart.movies.models.Crew;
 
 /**
  * Created by Bram on 22/03/2018.

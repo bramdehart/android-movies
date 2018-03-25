@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,6 +17,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import nl.bramdehart.movies.adapters.MovieRecyclerViewAdapter;
+import nl.bramdehart.movies.data.NetworkUtils;
+import nl.bramdehart.movies.R;
+import nl.bramdehart.movies.models.Movie;
 
 public class SearchResultsActivity extends AppCompatActivity {
 

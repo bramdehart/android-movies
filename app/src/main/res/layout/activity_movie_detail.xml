@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.bramdehart.movies.MovieDetailActivity">
+    tools:context="nl.bramdehart.movies.activities.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"

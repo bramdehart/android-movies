@@ -1,34 +1,25 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Rating;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
@@ -37,13 +28,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import nl.bramdehart.movies.adapters.CastRecyclerViewAdapter;
+import nl.bramdehart.movies.adapters.CrewRecyclerViewAdapter;
+import nl.bramdehart.movies.data.NetworkUtils;
+import nl.bramdehart.movies.R;
 import nl.bramdehart.movies.data.FavoritesContract;
 import nl.bramdehart.movies.data.FavoritesDbHelper;
+import nl.bramdehart.movies.models.Cast;
+import nl.bramdehart.movies.models.Crew;
+import nl.bramdehart.movies.models.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
 

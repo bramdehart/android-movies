@@ -1,4 +1,4 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import nl.bramdehart.movies.R;
+import nl.bramdehart.movies.activities.MovieDetailActivity;
+import nl.bramdehart.movies.models.Movie;
 
 /**
  * Created by Bram on 17/03/2018.

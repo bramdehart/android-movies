@@ -1,12 +1,9 @@
-package nl.bramdehart.movies;
+package nl.bramdehart.movies.models;
 
-import android.net.Uri;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
+
+import nl.bramdehart.movies.models.Cast;
+import nl.bramdehart.movies.models.Crew;
 
 /**
  * Created by Bram on 17/03/2018.
