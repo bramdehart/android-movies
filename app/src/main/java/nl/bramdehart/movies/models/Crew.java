@@ -4,14 +4,8 @@ package nl.bramdehart.movies.models;
  * Created by Bram on 21/03/2018.
  */
 
-public class Crew {
-
-    private String name;
+public class Crew extends Person {
     private String job;
-    private String profilePath;
-    private String profileUrl;
-
-    private final static String TMDB_IMG_BASE_URL = "http://image.tmdb.org/t/p/";
 
     public Crew() {
     }
@@ -23,23 +17,7 @@ public class Crew {
         setProfileUrl(profilePath);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getJob() {
         return job;
-    }
-
-    public String getProfileUrl() {
-        return profileUrl;
-    }
-
-    private void setProfileUrl(String profilePath) {
-        profileUrl = TMDB_IMG_BASE_URL + "w300" + profilePath;
-    }
-
-    public String getProfilePath() {
-        return profilePath;
     }
 }
