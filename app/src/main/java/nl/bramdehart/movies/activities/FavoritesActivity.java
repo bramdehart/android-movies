@@ -69,16 +69,27 @@ public class FavoritesActivity extends AppCompatActivity {
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        // Get favorites
+        // Get favorites and initialize movies
         Cursor cursorFavorites = getFavorites();
+        initMovies(cursorFavorites);
+        populateRecyclerView();
+    }
 
-        // Initialize movies
+    /**
+     * Called when the user switches back from movie detail activity to favorites activity.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Get favorites and initialize movies
+        Cursor cursorFavorites = getFavorites();
         initMovies(cursorFavorites);
         populateRecyclerView();
     }
 
     /**
      * Get the favorites movies from de local database
+     *
      * @return
      */
     private Cursor getFavorites() {
@@ -117,6 +128,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
     /**
      * Reads the query result and initialize favorite movies into an array.
+     *
      * @param cursorMovies
      */
     private void initMovies(Cursor cursorMovies) {
