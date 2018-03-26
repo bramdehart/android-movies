@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Films</string>
+    <string name="trending">Populair</string>
+    <string name="search">Zoeken</string>
+    <string name="favorites">Favorieten</string>
+    <string name="error_message">Er ging iets mis, probeer het nogmaals.</string>
+    <string name="trending_movies">Populaire Films</string>
+    <string name="search_a_movie">Zoek een film</string>
+    <string name="search_movie">Zoek film</string>
+    <string name="add_to_my_favorites">Voeg toe aan favorieten</string>
+    <string name="general">Algemeen</string>
+    <string name="release">Verschijningsdatum</string>
+    <string name="duration">Lengte</string>
+    <string name="genres">Categorien</string>
+    <string name="producers">Producenten</string>
+    <string name="trailer">Trailer</string>
+    <string name="watch_trailer">Bekijk Trailer</string>
+    <string name="cast">Acteurs</string>
+    <string name="crew">Productie</string>
+    <string name="favorite_movies">Favoriete Films</string>
+    <string name="remove_from_favorites">Verwijder van favorieten</string>
+    <string name="add_to_favorites">Voeg toe aan favorieten</string>
+    <string name="favorites_removed_1">Succesvol</string>
+    <string name="favorites_removed_2">verwijderd van favorieten</string>
+    <string name="favorites_added_1">Succesvol</string>
+    <string name="favorites_added_2">toegevoegd aan favorieten</string>
+    <string name="minutes">minuten</string>
+    <string name="unknown">Onbekend</string>
+    <string name="results_heading">resultaten voor</string>
+    <string name="no_favorite_movies">Je hebt nog geen favoriete films. Voeg er één toe door naar een filmpagina te gaan.</string>
+    <string name="no_description">Geen beschrijving beschikbaar</string>
+    <string name="no_trailer">Geen trailer beschikbaar</string>
+
+</resources>

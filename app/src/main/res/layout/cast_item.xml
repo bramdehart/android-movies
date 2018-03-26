@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cl_cast_item"
+    android:clickable="false"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center">
+
+        <RelativeLayout
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="#121212">
+            <ImageView
+                android:id="@+id/iv_cast_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollY="-10dp"
+                android:scaleType="centerCrop" />
+            <ImageView
+                android:id="@+id/iv_cast_outline"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_alignTop="@id/iv_cast_profile"
+                android:layout_alignBottom="@id/iv_cast_profile"
+                android:layout_alignLeft="@id/iv_cast_profile"
+                android:layout_alignRight="@id/iv_cast_profile"
+                android:background="@drawable/profile_outline" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_cast_name"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_cast_character"
+            android:layout_width="125dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textColor="#aaa"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

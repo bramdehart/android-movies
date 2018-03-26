@@ -1,6 +1,38 @@
 <resources>
-    <string name="app_name">Movimi</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Movies</string>
+    <string name="trending">Trending</string>
+    <string name="search">Search</string>
+    <string name="favorites">Favorites</string>
+    <string name="error_message">Failed to get results, please try again.</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="search_a_movie">Search a movie</string>
+    <string name="search_movie">Search movie</string>
+    <string name="add_to_my_favorites">Add to my favorites</string>
+    <string name="general">General</string>
+    <string name="release">Release date</string>
+    <string name="duration">Duration</string>
+    <string name="genres">Genres</string>
+    <string name="producers">Producers</string>
+    <string name="trailer">Trailer</string>
+    <string name="watch_trailer">Watch Trailer</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="remove_from_favorites">Remove from my favorites</string>
+    <string name="add_to_favorites">Add to my favorites</string>
+    <string name="favorites_removed_1">Removed</string>
+    <string name="favorites_removed_2">from your favorites</string>
+    <string name="favorites_added_1">Added</string>
+    <string name="favorites_added_2">to your favorites</string>
+    <string name="minutes">minutes</string>
+    <string name="unknown">Onbekend</string>
+    <string name="results_heading">results for</string>
+    <string name="no_favorite_movies">You don\'t have any favorite movies. Add one by going to a movie\'s detail page.</string>
+    <string name="no_description">No description available</string>
+    <string name="no_trailer">No trailer available</string>
+
+    <string name="title_activity_book_detail"></string>
+    <string name="title_activity_search"></string>
+    <string name="title_activity_favorites"></string>
+
 </resources>

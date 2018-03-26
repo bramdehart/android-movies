@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Filme</string>
+    <string name="trending">Aktuell</string>
+    <string name="search">Suchen</string>
+    <string name="favorites">Favoriten</string>
+    <string name="error_message">Etwas ist schiefgelaufen, versuche es noch einmal.</string>
+    <string name="trending_movies">Populäre Filme</string>
+    <string name="search_a_movie">Suchen Sie einen Film</string>
+    <string name="search_movie">Film suchen</string>
+    <string name="add_to_my_favorites">Zu Favoriten hinzufügen</string>
+    <string name="general">Allgemein</string>
+    <string name="release">Veröffentlichungsdatum</string>
+    <string name="duration">Länge</string>
+    <string name="genres">Kategorien</string>
+    <string name="producers">Produzenten</string>
+    <string name="trailer">Video</string>
+    <string name="watch_trailer">Video ansehen</string>
+    <string name="cast">Schauspieler</string>
+    <string name="crew">Produktion</string>
+    <string name="favorite_movies">Favoriten filme</string>
+    <string name="remove_from_favorites">aus den Favoriten entfernen</string>
+    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
+    <string name="favorites_removed_1">Erfolgreich</string>
+    <string name="favorites_removed_2">aus den Favoriten entfernt</string>
+    <string name="favorites_added_1">Erfolgreich</string>
+    <string name="favorites_added_2">zu den Favoriten hinzugefügt</string>
+    <string name="minutes">Minuten</string>
+    <string name="unknown">unbekannt</string>
+    <string name="results_heading">Ergebnisse für</string>
+    <string name="no_favorite_movies">Du hast noch keine Lieblingsfilme gespeichert. Sie können einen hinzufügen, indem Sie zu einer Filmseite gehen.</string>
+    <string name="no_description">Keine Beschreibung verfügbar</string>
+    <string name="no_trailer">Kein Trailer verfügbar</string>
+
+</resources>
