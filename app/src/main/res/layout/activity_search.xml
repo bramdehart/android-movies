@@ -25,7 +25,9 @@
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="22sp"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:singleLine="true"
+            android:imeOptions="actionDone" />
 
         <Button
             android:id="@+id/btn_search_movie"

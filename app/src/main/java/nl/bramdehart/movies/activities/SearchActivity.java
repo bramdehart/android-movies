@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import nl.bramdehart.movies.R;
 
@@ -68,6 +71,17 @@ public class SearchActivity extends AppCompatActivity {
 
         etSearchBox = findViewById(R.id.et_search_box);
         btnSearchMovie = findViewById(R.id.btn_search_movie);
+
+        etSearchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Set on click listener on button
         btnSearchMovie.setOnClickListener(new View.OnClickListener()
