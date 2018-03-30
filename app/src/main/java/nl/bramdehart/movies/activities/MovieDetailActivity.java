@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -53,23 +55,13 @@ import nl.bramdehart.movies.models.Movie;
  */
 public class MovieDetailActivity extends AppCompatActivity {
 
-    private TextView tvMovieTitle;
-    private ImageView ivMoviePoster;
-    private TextView tvMovieGenres;
-    private TextView tvMovieProductionCompanies;
-    private TextView tvMovieRunTime;
-    private TextView tvMovieOverview;
-    private TextView tvMovieReleaseDate;
-    private TextView tvCrew;
-    private TextView tvCast;
-    private TextView tvErrorMessage;
-    private Button btnFavorites;
+    private TextView tvMovieTitle, tvMovieGenres, tvMovieProductionCompanies, tvMovieRunTime, tvMovieOverview, tvMovieReleaseDate, tvCrew, tvCast, tvErrorMessage;
+    private ImageView ivMoviePoster, ivHeaderBackdrop;
+    private Button btnFavorites, btnTrailer;
+    private LinearLayout llMovieDetails;
     private ProgressBar pbLoadingIndicator;
-    private LinearLayout llMovieInfoHolder;
     private RatingBar rbRatingBar;
-    private RecyclerView rvCast;
-    private RecyclerView rvCrew;
-    private Button btnTrailer;
+    private RecyclerView rvCast, rvCrew;
     private int movieId;
     private Movie movie;
     private SQLiteDatabase mDatabase;
@@ -81,6 +73,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         tvMovieTitle = findViewById(R.id.tv_movie_title);
         ivMoviePoster = findViewById(R.id.iv_movie_poster);
+        ivHeaderBackdrop = findViewById(R.id.header_backdrop);
         tvMovieGenres = findViewById(R.id.tv_movie_genres);
         tvMovieProductionCompanies = findViewById(R.id.tv_movie_production_companies);
         tvMovieRunTime = findViewById(R.id.tv_movie_runtime);
@@ -88,7 +81,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvMovieOverview = findViewById(R.id.tv_movie_overview);
         tvErrorMessage = findViewById(R.id.tv_error_message);
         pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
-        llMovieInfoHolder = findViewById(R.id.ll_movie_info_holder);
         rbRatingBar = findViewById(R.id.rb_movie_rating);
         btnFavorites = findViewById(R.id.btn_favorites);
         rvCast = findViewById(R.id.rv_cast);
@@ -96,6 +88,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvCrew = findViewById(R.id.tv_crew);
         tvCast = findViewById(R.id.tv_cast);
         btnTrailer = findViewById(R.id.btn_trailer);
+        llMovieDetails = findViewById(R.id.ll_movie_details);
+
+        showLoadingBar();
 
         // Receive data and starts the query
         Intent intent = getIntent();
@@ -105,6 +100,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         // Set ratingbar color
         Drawable progress = rbRatingBar.getProgressDrawable();
         DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
+
+        // Set loadingbar color
+        pbLoadingIndicator.getIndeterminateDrawable().setColorFilter(Color.parseColor("#b9090b"), PorterDuff.Mode.MULTIPLY);
 
         // Create a database helper
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(this);
@@ -152,15 +150,26 @@ public class MovieDetailActivity extends AppCompatActivity {
      */
     private void showMovieDetails() {
         tvErrorMessage.setVisibility(View.GONE);
-        llMovieInfoHolder.setVisibility(View.VISIBLE);
+        pbLoadingIndicator.setVisibility(View.GONE);
+        llMovieDetails.setVisibility(View.VISIBLE);
     }
 
     /**
      * Shows error message.
      */
     private void showErrorMessage() {
-        llMovieInfoHolder.setVisibility(View.GONE);
         tvErrorMessage.setVisibility(View.VISIBLE);
+        pbLoadingIndicator.setVisibility(View.GONE);
+        llMovieDetails.setVisibility(View.GONE);
+    }
+
+    /**
+     * Shows the loading bar.
+     */
+    private void showLoadingBar() {
+        tvErrorMessage.setVisibility(View.GONE);
+        pbLoadingIndicator.setVisibility(View.VISIBLE);
+        llMovieDetails.setVisibility(View.GONE);
     }
 
     /**
@@ -255,12 +264,11 @@ public class MovieDetailActivity extends AppCompatActivity {
      */
     private void bindMovieData() {
         // Set activity components
-        ImageView headerBackdrop = findViewById(R.id.header_backdrop);
         if (movie.getBackDropLarge() != null) {
-            Picasso.get().load(movie.getBackDropLarge()).into(headerBackdrop);
+            Picasso.get().load(movie.getBackDropLarge()).into(ivHeaderBackdrop);
         }
         else {
-            Picasso.get().load(R.drawable.backdrop_fallback).into(headerBackdrop);
+            Picasso.get().load(R.drawable.backdrop_fallback).into(ivHeaderBackdrop);
         }
 
         setTitle(movie.getTitle());
@@ -293,7 +301,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         Animation moveUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_up);
         ivMoviePoster.startAnimation(moveUpAnimation); //Set animation to your ImageView
-        headerBackdrop.startAnimation(fadeInAnimation);
+        ivHeaderBackdrop.startAnimation(fadeInAnimation);
 
         // Set rating
         rbRatingBar.setRating((float) (movie.getRating() / 2));
@@ -363,7 +371,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             btnTrailer.setText(R.string.no_trailer);
             btnTrailer.setBackground(ContextCompat.getDrawable(this, R.drawable.btn_disabled));
         }
-
     }
 
     /**
@@ -433,18 +440,12 @@ public class MovieDetailActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(String s) {
-            pbLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (s != null && !s.equals("")) {
+            try {
+                parseMovieData(s);
+                bindMovieData();
                 showMovieDetails();
-                try {
-                    parseMovieData(s);
-                    bindMovieData();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showErrorMessage();
-                }
-            } else {
+            } catch (JSONException e) {
+                e.printStackTrace();
                 showErrorMessage();
             }
         }

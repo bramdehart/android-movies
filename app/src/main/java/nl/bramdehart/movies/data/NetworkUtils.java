@@ -101,7 +101,6 @@ public class NetworkUtils {
                 .build();
         URL url = null;
         try {
-            Log.e("info", detailUri.toString());
             url = new URL(detailUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();

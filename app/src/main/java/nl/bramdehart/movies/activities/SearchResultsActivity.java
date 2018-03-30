@@ -1,13 +1,17 @@
 package nl.bramdehart.movies.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -32,6 +36,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private String searchQuery;
     private TextView tvErrorMessage;
     private TextView tvResultsTitle;
+    private RelativeLayout rlMovieResults;
     private ProgressBar pbLoadingIndicator;
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
@@ -45,9 +50,15 @@ public class SearchResultsActivity extends AppCompatActivity {
         tvErrorMessage = findViewById(R.id.tv_error_message);
         pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         tvResultsTitle = findViewById(R.id.tv_results_title);
+        rlMovieResults = findViewById(R.id.rl_movie_results);
 
         rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
+
+        // Set loadingbar color
+        pbLoadingIndicator.getIndeterminateDrawable().setColorFilter(Color.parseColor("#b9090b"), PorterDuff.Mode.MULTIPLY);
+
+        showLoadingBar();
 
         // Get received data from previous intent
         Intent intent = getIntent();
@@ -86,17 +97,13 @@ public class SearchResultsActivity extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(String s) {
-            pbLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (s != null && !s.equals("")) {
-                showRecyclerView();
-                try {
-                    parseMovies(s);
-                    populateRecyclerView();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showErrorMessage();
-                }
-            } else {
+            showLoadingBar();
+            try {
+                parseMovies(s);
+                populateRecyclerView();
+                showMovieResults();
+            } catch (JSONException e) {
+                e.printStackTrace();
                 showErrorMessage();
             }
         }
@@ -139,18 +146,29 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     /**
-     * Show recycler view.
+     * Shows movie details.
      */
-    private void showRecyclerView() {
-        tvErrorMessage.setVisibility(View.INVISIBLE);
-        rvMovieList.setVisibility(View.VISIBLE);
+    private void showMovieResults() {
+        tvErrorMessage.setVisibility(View.GONE);
+        pbLoadingIndicator.setVisibility(View.GONE);
+        rlMovieResults.setVisibility(View.VISIBLE);
     }
 
     /**
-     * Show error message.
+     * Shows error message.
      */
     private void showErrorMessage() {
-        rvMovieList.setVisibility(View.INVISIBLE);
         tvErrorMessage.setVisibility(View.VISIBLE);
+        pbLoadingIndicator.setVisibility(View.GONE);
+        rlMovieResults.setVisibility(View.GONE);
+    }
+
+    /**
+     * Shows the loading bar.
+     */
+    private void showLoadingBar() {
+        tvErrorMessage.setVisibility(View.GONE);
+        pbLoadingIndicator.setVisibility(View.VISIBLE);
+        rlMovieResults.setVisibility(View.GONE);
     }
 }
