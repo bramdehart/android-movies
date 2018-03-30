@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class FavoritesActivity extends AppCompatActivity {
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
     private TextView tvNoFavorites;
+    private LinearLayout llDisclaimer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,6 +67,9 @@ public class FavoritesActivity extends AppCompatActivity {
         rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
 
+        llDisclaimer = findViewById(R.id.ll_disclaimer_wrapper);
+        llDisclaimer.setVisibility(View.GONE);
+
         // Set bottombar active item
         navigation.setSelectedItemId(R.id.navigation_favorites);
 
@@ -79,8 +84,10 @@ public class FavoritesActivity extends AppCompatActivity {
 
         // Hide text if there are favorite movies present
         tvNoFavorites = findViewById(R.id.tv_no_favorites);
+
         if (movies.size() > 0) {
             tvNoFavorites.setVisibility(View.GONE);
+            llDisclaimer.setVisibility(View.VISIBLE);
         }
     }
 

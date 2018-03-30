@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class TrendingActivity extends AppCompatActivity {
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
     private RelativeLayout rlMovieResults;
+    private LinearLayout llDisclaimer;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -79,6 +81,7 @@ public class TrendingActivity extends AppCompatActivity {
         tvErrorMessage = findViewById(R.id.tv_error_message);
         pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         rlMovieResults = findViewById(R.id.rl_movie_results);
+        llDisclaimer = findViewById(R.id.ll_disclaimer_wrapper);
 
         // Set loadingbar color
         pbLoadingIndicator.getIndeterminateDrawable().setColorFilter(Color.parseColor("#b9090b"), PorterDuff.Mode.MULTIPLY);
@@ -114,6 +117,7 @@ public class TrendingActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.GONE);
         rlMovieResults.setVisibility(View.VISIBLE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -123,6 +127,7 @@ public class TrendingActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.VISIBLE);
         pbLoadingIndicator.setVisibility(View.GONE);
         rlMovieResults.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -132,10 +137,11 @@ public class TrendingActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.VISIBLE);
         rlMovieResults.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.GONE);
     }
 
     /**
-     * Checks if there is an internet connection available.
+     * Checks if there is an internet connection
      * @return
      */
     private boolean isOnline() {
@@ -146,7 +152,7 @@ public class TrendingActivity extends AppCompatActivity {
             connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
             return connected;
         } catch (Exception e) {
-            Log.e("i", e.getMessage());
+            // Log.e("i", e.getMessage());
         }
         return connected;
     }

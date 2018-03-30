@@ -61,7 +61,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvMovieGenres, tvMovieProductionCompanies, tvMovieRunTime, tvMovieOverview, tvMovieReleaseDate, tvCrew, tvCast, tvErrorMessage;
     private ImageView ivMoviePoster, ivHeaderBackdrop;
     private Button btnFavorites, btnTrailer;
-    private LinearLayout llMovieDetails;
+    private LinearLayout llMovieDetails, llDisclaimer;
     private ProgressBar pbLoadingIndicator;
     private RatingBar rbRatingBar;
     private RecyclerView rvCast, rvCrew;
@@ -92,6 +92,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvCast = findViewById(R.id.tv_cast);
         btnTrailer = findViewById(R.id.btn_trailer);
         llMovieDetails = findViewById(R.id.ll_movie_details);
+        llDisclaimer = findViewById(R.id.ll_disclaimer_wrapper);
 
         showLoadingBar();
 
@@ -159,6 +160,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.GONE);
         llMovieDetails.setVisibility(View.VISIBLE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -168,6 +170,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.VISIBLE);
         pbLoadingIndicator.setVisibility(View.GONE);
         llMovieDetails.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -177,6 +180,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.VISIBLE);
         llMovieDetails.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.GONE);
     }
 
     /**
@@ -431,7 +435,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
             return connected;
         } catch (Exception e) {
-            Log.e("i", e.getMessage());
+            // Log.e("i", e.getMessage());
         }
         return connected;
     }

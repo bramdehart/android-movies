@@ -205,6 +205,31 @@
                 android:textColor="#fff"
                 android:textSize="22sp"/>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_disclaimer_wrapper">
+                <ImageView
+                    android:id="@+id/iv_imdb_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:src="@drawable/tmdb_logo"
+                    android:layout_marginTop="20dp"/>
+                <TextView
+                    android:id="@+id/tv_imdb_disclaimer"
+                    android:text="@string/disclaimer_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#aaa"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginBottom="25dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

@@ -44,6 +44,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private ProgressBar pbLoadingIndicator;
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
+    private LinearLayout llDisclaimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         pbLoadingIndicator = findViewById(R.id.pb_loading_indicator);
         tvResultsTitle = findViewById(R.id.tv_results_title);
         rlMovieResults = findViewById(R.id.rl_movie_results);
+        llDisclaimer = findViewById(R.id.ll_disclaimer_wrapper);
 
         rvMovieList = findViewById(R.id.rv_movie_list);
         rvMovieList.setNestedScrollingEnabled(false);
@@ -160,6 +162,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.GONE);
         rlMovieResults.setVisibility(View.VISIBLE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -169,6 +172,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.VISIBLE);
         pbLoadingIndicator.setVisibility(View.GONE);
         rlMovieResults.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -178,6 +182,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.VISIBLE);
         rlMovieResults.setVisibility(View.GONE);
+        llDisclaimer.setVisibility(View.GONE);
     }
 
     /**
@@ -192,7 +197,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
             return connected;
         } catch (Exception e) {
-            Log.e("i", e.getMessage());
+            // Log.e("i", e.getMessage());
         }
         return connected;
     }

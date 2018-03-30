@@ -20,43 +20,72 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="25dp"
-                    android:text="@string/favorite_movies"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_no_favorites"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="25dp"
+                        android:text="@string/favorite_movies"
+                        android:textColor="#ffffff"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tv_no_favorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/no_favorite_movies"
+                        android:textColor="#aaa"
+                        android:textSize="22sp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="60dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_movie_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="60dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/no_favorite_movies"
-                    android:textColor="#aaa"
-                    android:textSize="22sp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="60dp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_movie_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="60dp">
-
-                </android.support.v7.widget.RecyclerView>
-
-            </RelativeLayout>
+                    android:id="@+id/ll_disclaimer_wrapper">
+                    <ImageView
+                        android:id="@+id/iv_imdb_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:src="@drawable/tmdb_logo"
+                        android:layout_marginTop="20dp"/>
+                    <TextView
+                        android:id="@+id/tv_imdb_disclaimer"
+                        android:text="@string/disclaimer_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#aaa"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:padding="5dp"
+                        android:layout_marginBottom="25dp"/>
+                </LinearLayout>
+            </LinearLayout>
 
         </ScrollView>
 
