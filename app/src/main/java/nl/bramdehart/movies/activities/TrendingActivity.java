@@ -1,8 +1,11 @@
 package nl.bramdehart.movies.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -88,7 +92,11 @@ public class TrendingActivity extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_trending);
 
         // Starts the query
-        makeTMDBTrendingQuery();
+        if (isOnline()) {
+            makeTMDBTrendingQuery();
+        } else {
+            showErrorMessage();
+        }
     }
 
     /**
@@ -124,6 +132,23 @@ public class TrendingActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.VISIBLE);
         rlMovieResults.setVisibility(View.GONE);
+    }
+
+    /**
+     * Checks if there is an internet connection available.
+     * @return
+     */
+    private boolean isOnline() {
+        boolean connected = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("i", e.getMessage());
+        }
+        return connected;
     }
 
     /**

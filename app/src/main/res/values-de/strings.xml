@@ -4,7 +4,7 @@
     <string name="search">Suchen</string>
     <string name="favorites">Favoriten</string>
     <string name="error_message">Etwas ist schiefgelaufen, versuche es noch einmal.</string>
-    <string name="trending_movies">Populäre Filme</string>
+    <string name="trending_movies">Aktuelle Filme</string>
     <string name="search_a_movie">Suchen Sie einen Film</string>
     <string name="search_movie">Film suchen</string>
     <string name="add_to_my_favorites">Zu Favoriten hinzufügen</string>

@@ -1,13 +1,17 @@
 package nl.bramdehart.movies.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -66,7 +70,11 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         // Start search query
         URL TMDBSearchURL = NetworkUtils.buildSearchUrl(searchQuery);
-        new SearchResultsActivity.TMDBQueryTask().execute(TMDBSearchURL);
+        if (isOnline()) {
+            new SearchResultsActivity.TMDBQueryTask().execute(TMDBSearchURL);
+        } else {
+            showErrorMessage();
+        }
     }
 
     /**
@@ -170,5 +178,22 @@ public class SearchResultsActivity extends AppCompatActivity {
         tvErrorMessage.setVisibility(View.GONE);
         pbLoadingIndicator.setVisibility(View.VISIBLE);
         rlMovieResults.setVisibility(View.GONE);
+    }
+
+    /**
+     * Checks if there is an internet connection available.
+     * @return
+     */
+    private boolean isOnline() {
+        boolean connected = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("i", e.getMessage());
+        }
+        return connected;
     }
 }

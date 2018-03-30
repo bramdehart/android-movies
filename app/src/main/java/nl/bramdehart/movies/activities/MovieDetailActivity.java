@@ -2,12 +2,15 @@ package nl.bramdehart.movies.activities;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -92,11 +95,6 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         showLoadingBar();
 
-        // Receive data and starts the query
-        Intent intent = getIntent();
-        movieId = intent.getExtras().getInt("MovieId");
-        makeTMDBMovieDetailQuery(movieId);
-
         // Set ratingbar color
         Drawable progress = rbRatingBar.getProgressDrawable();
         DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
@@ -133,6 +131,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Receive data and starts the query
+        Intent intent = getIntent();
+        movieId = intent.getExtras().getInt("MovieId");
+        if (isOnline()) {
+            makeTMDBMovieDetailQuery(movieId);
+        } else {
+            showErrorMessage();
+        }
     }
 
     /**
@@ -413,6 +420,23 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     /**
+     * Checks if there is an internet connection available.
+     * @return
+     */
+    private boolean isOnline() {
+        boolean connected = false;
+        try {
+            ConnectivityManager connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+            return connected;
+        } catch (Exception e) {
+            Log.e("i", e.getMessage());
+        }
+        return connected;
+    }
+
+    /**
      * Inner class that takes care of the query task.
      */
     public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
@@ -425,7 +449,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(URL... urls) {
             URL searchUrl = urls[0];
-            Log.e("url", searchUrl.toString());
             String TMDBResults = null;
             try {
                 TMDBResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
