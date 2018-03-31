@@ -30,5 +30,9 @@
     <string name="no_favorite_movies">Je hebt nog geen favoriete films. Voeg er één toe door naar een filmpagina te gaan.</string>
     <string name="no_description">Geen beschrijving beschikbaar</string>
     <string name="no_trailer">Geen trailer beschikbaar</string>
+    <string name="disclaimer_message">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
+    <string name="title_activity_book_detail"></string>
+    <string name="title_activity_search"></string>
+    <string name="title_activity_favorites"></string>
 
 </resources>

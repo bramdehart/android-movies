@@ -31,7 +31,6 @@
     <string name="no_description">No description available</string>
     <string name="no_trailer">No trailer available</string>
     <string name="disclaimer_message">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
-
     <string name="title_activity_book_detail"></string>
     <string name="title_activity_search"></string>
     <string name="title_activity_favorites"></string>

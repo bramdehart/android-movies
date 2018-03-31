@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    aaptOptions {
+        cruncherEnabled = false
+    }
 }
 
 dependencies {
@@ -33,4 +36,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.android.support:support-annotations:26.1.0'
 }
